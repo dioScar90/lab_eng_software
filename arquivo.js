@@ -2,7 +2,7 @@
 
 // document.write("Escrevendo com JavaScript...");
 
-// let nome = prompt("Escreva seu nome: ", '');
+// let nome = prompt("Escreva seu nome:", '');
 // if (confirm("Quer ver seu nome?"))
 //     alert("Seu nome é: " + nome + ".");
 
@@ -12,10 +12,20 @@
 // document.write("<p> Olá, sala! </p>");
 
 // 1. Implemente um script JavaScript que solicite ao usuário a entrada de um dado via teclado. Em seguida, pergunte se o usuário deseja verificar o tipo do dado informado. Caso o usuário confirme escreva no corpo da página o tipo do dado (Number, String, etc.) caso contrário escreva a mensagem: “Obrigado por visitar esta página”.
-let dado = prompt("Escreva alguma coisa: ", '');
+function verificarTipo(dado) {
+    try {
+        let parsed = JSON.parse(dado.toLowerCase());
+        return typeof parsed;
+    } catch (e) {
+        console.log(e);
+        return typeof dado;
+    }
+}
+let dado = prompt("Escreva alguma coisa:", '');
 if (confirm("Deseja verificar o tipo de dado digitado?")) {
-    let typeOf = isNaN(dado) ? typeof dado : typeof parseInt(dado);
-    document.write("O dado digitado \"" + dado + "\" corresponde a um(a) " + typeOf + ".");
+    // let typeOf = isNaN(dado) ? typeof dado : typeof parseInt(dado);
+    let typeOf = verificarTipo(dado);
+    document.write("O dado digitado \"" + dado + "\" corresponde ao tipo " + typeOf + ".");
 }
 else {
     document.write("Obrigado por visitar esta página.");
@@ -61,10 +71,11 @@ else
 function fatorial(num) {
     if (num < 0) 
         return -1;
-    else if (num == 0) 
+    
+    if (num == 0) 
         return 1;
-    else
-        return (num * fatorial(num - 1));
+        
+    return num * fatorial(num - 1);
 }
 let numeroInteiro3 = prompt("Digite um número inteiro positivo:", '');
 let numeroFatorial = fatorial(+numeroInteiro3);
