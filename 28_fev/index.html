@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Data e hora</title>
+
+    <style>
+        .container {
+            display: flex;
+            justify-content: center;
+        }
+
+        .principal {
+            width: max-content;
+        }
+
+        .principal > div {
+            margin-top: 2em;
+        }
+
+        span.hoje, .agora {
+            width: fit-content;
+            border: solid;
+            border-radius: 0.5em;
+            padding: 0.25em;
+        }
+
+        .agora > span {
+            font-weight: bold;
+        }
+
+        .hora-atual, .pre-form {
+            display: flex;
+            justify-content: space-evenly;
+        }
+
+        .verificar {
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <!-- 
+        1. Implemente um script JavaScript que exiba a data atual no formato:
+            Quarta-feira, 15 de fevereiro de 2023
+
+        2. Pesquise a utilização do método setTimeout() e implemente um relógio que atualize o horário a cada segundo:
+
+        3. Implemente um script que leia uma palavra ou frase de um campo de texto e exiba em uma janela de alert se o texto é ou não um palíndromo.
+
+        ATUALIZE SEU PROJETO NO GIT E COLOQUE EM PRODUÇÃO
+    -->
+
+    <div class="container">
+        <div class="principal">
+            <div>
+                <p id="hoje">Hoje é: <span class="hoje"></span>.</p>
+            </div>
+
+            <div class="hora-atual">
+                <p class="agora" id="agora">Hora atual: <span></span>.</p>
+            </div>
+
+            <div>
+                <p>Escreva uma palavra ou uma frase e clique no botão para verfiicar se trata-se de um palíndromo:</p>
+                <form action="" method="post" id="form-palindromo" onsubmit="verificarPalindromo(event)">
+                    <div class="pre-form">
+                        <div>
+                            <label for="palindromo">Palavra/frase:</label>
+                            <input type="text" name="palindromo" id="palindromo" placeholder="Ex.: O lobo ama o bolo." required>
+                        </div>
+
+                        <div>
+                            <button class="verificar">Verificar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function getValuesDoForm(form) {
+            let dados = new FormData(form);
+            
+            let newObj = {};
+            for (const [name, val] of dados) {
+                newObj[name] = val;
+            }
+
+            return newObj;
+        }
+
+        function reverseString(needle) {
+            var splitString = needle.split('');
+            var reverseArray = splitString.reverse();
+            var stringInvertida = reverseArray.join('');
+            
+            return stringInvertida;
+        }
+
+        function verificarPalindromo(e) {
+            e.preventDefault();
+
+            const values = getValuesDoForm(e.target);
+            let valorLower =
+                values.palindromo.trim() // Remove possíveis espaços no início e no fim da string.
+                    .normalize('NFD') // Normaliza o texto no Formato de Normalização Canônico de Decomposição (acho desnecessário mas ok).
+                    .replace(/[^\wÀ-ÖØ-öø-ÿ]/g, '') // Remove caracteres especiais, como pontos, traços e até mesmo espaços.
+                    .replace(/[\u0300-\u036f]/g, '') // Substitui letras acentuadas por letras normais.
+                    .toLowerCase(); // Deixa todas as letras em caixa baixa.
+
+            let valorParaCompara = reverseString(valorLower);
+
+            let textAlert = valorLower == valorParaCompara ? "É um palíndromo." : "Não é um palíndromo.";
+
+            alert(textAlert);
+        }
+
+        function diaHoje() {
+            const spanHoje = document.querySelector("#hoje > span");
+            const DIAS_SEMANA = ["Domingo", "Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Xexta-feira","Sábado"];
+            const MESES_ANO = ["janeiro", "fevereiro", "março", "abril", "maio", "junho", "julho", "agosto", "setembro", "outubro", "novembro", "dezembro"];
+
+            let hoje = new Date();
+            let diaSemana = DIAS_SEMANA[hoje.getDay()];
+            let dia = hoje.getDate();
+            let mes = MESES_ANO[hoje.getMonth()];
+            let ano = hoje.getFullYear();
+            let diaCompleto = `${diaSemana}, ${dia} de ${mes} de ${ano}`;
+
+            spanHoje.innerHTML = diaCompleto;
+        }
+
+        function atualizaHora() {
+            const spanAgora = document.querySelector("#agora > span");
+            let tempoAgora = new Date().toLocaleTimeString('pt-BR');
+            spanAgora.innerHTML = tempoAgora;
+            
+            setTimeout(atualizaHora, 1000);
+        }
+
+        function rodarQuandoCarregar() {
+            diaHoje();
+            atualizaHora();
+        }
+
+        document.addEventListener("DOMContentLoaded", rodarQuandoCarregar);
+    </script>
+</body>
+</html>
