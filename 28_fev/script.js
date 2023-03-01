@@ -10,17 +10,16 @@ function getValuesDoForm(form) {
 }
 
 function reverseString(needle) {
-    var splitString = needle.split('');
-    var reverseArray = splitString.reverse();
-    var stringInvertida = reverseArray.join('');
-    
+    let splitString = needle.split('');
+    let reverseArray = splitString.reverse();
+    let stringInvertida = reverseArray.join('');
     return stringInvertida;
 }
 
 function verificarPalindromo(e) {
     e.preventDefault();
 
-    const values = getValuesDoForm(e.target);
+    let values = getValuesDoForm(e.target);
     let valorLower =
         values.palindromo.trim() // Remove possíveis espaços no início e no fim da string.
             .normalize('NFD') // Normaliza o texto no Formato de Normalização Canônico de Decomposição (acho desnecessário mas ok).
@@ -54,14 +53,15 @@ function atualizaHora() {
     const spanAgora = document.querySelector("#agora > span");
     let tempoAgora = new Date().toLocaleTimeString('pt-BR');
     spanAgora.innerHTML = tempoAgora;
-    
-    setTimeout(atualizaHora, 1000);
 }
+
+const iniciarAtualizaHora = () => setInterval(atualizaHora, 1000);
 
 async function rodarQuandoCarregar() {
     await diaHoje();
-    await atualizaHora();
+    await iniciarAtualizaHora();
 }
 
+document.querySelector("#form-palindromo").addEventListener("submit", verificarPalindromo);
 document.querySelector("#btn-voltar").addEventListener("click", () => location = "../index.html");
 document.addEventListener("DOMContentLoaded", rodarQuandoCarregar);
