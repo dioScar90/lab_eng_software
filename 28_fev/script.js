@@ -36,13 +36,13 @@ function verificarPalindromo(e) {
 
 function diaHoje() {
     const spanHoje = document.querySelector("#hoje > span");
-    const DIAS_SEMANA = ["Domingo", "Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Xexta-feira","Sábado"];
-    const MESES_ANO = ["janeiro", "fevereiro", "março", "abril", "maio", "junho", "julho", "agosto", "setembro", "outubro", "novembro", "dezembro"];
+    let diasSemana = ["Domingo", "Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Xexta-feira","Sábado"];
+    let mesesAno = ["janeiro", "fevereiro", "março", "abril", "maio", "junho", "julho", "agosto", "setembro", "outubro", "novembro", "dezembro"];
 
     let hoje = new Date();
-    let diaSemana = DIAS_SEMANA[hoje.getDay()];
+    let diaSemana = diasSemana[hoje.getDay()];
     let dia = hoje.getDate() == 1 ? "1º" : hoje.getDate();
-    let mes = MESES_ANO[hoje.getMonth()];
+    let mes = mesesAno[hoje.getMonth()];
     let ano = hoje.getFullYear();
     let diaCompleto = `${diaSemana}, ${dia} de ${mes} de ${ano}`;
 
