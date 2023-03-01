@@ -1,0 +1,62 @@
+.container {
+    display: flex;
+    justify-content: center;
+}
+
+.principal {
+    width: max-content;
+}
+
+.principal > div {
+    margin-top: 2em;
+}
+
+.principal > div.voltar {
+    margin-top: 3em;
+}
+
+.botoes-principais {
+    display: flex;
+    justify-content: space-between;
+}
+
+.botoes-principais > li {
+    list-style: none;
+}
+
+.p-principal {
+    font-size: x-large;
+}
+
+button {
+    border-radius: 0.5em;
+    padding: 0.5em;
+}
+
+.botoes-principais > li > button {
+    font-size: large;
+}
+
+span.hoje, .agora {
+    width: fit-content;
+    border: solid;
+    border-radius: 0.5em;
+    padding: 0.25em;
+}
+
+.agora > span {
+    font-weight: bold;
+}
+
+.hora-atual, .pre-form {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.maozinha {
+    cursor: pointer;
+}
+
+.maozinha:disabled {
+    cursor: not-allowed;
+}

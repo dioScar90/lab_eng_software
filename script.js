@@ -1,0 +1,22 @@
+function clicarBotao(event) {
+    let idClicado = event.target.id;
+
+    switch (idClicado) {
+        case "atv-1" :
+            location = "14_fev/index.html";
+            break;
+        case "atv-2" :
+            location = "28_fev/index.html";
+            break;
+        case "atv-4" :
+            console.log("Desativado por enquanto.");
+            break;
+        case "atv-5" :
+            console.log("Desativado por enquanto.");
+            break;
+        default :
+            console.log("Errooooou...");
+    }
+}
+
+document.addEventListener("click", clicarBotao);

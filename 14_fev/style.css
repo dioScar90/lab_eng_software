@@ -1,0 +1,36 @@
+.container {
+    display: flex;
+    justify-content: center;
+}
+
+.principal {
+    width: max-content;
+}
+
+.principal > div {
+    margin-top: 2em;
+}
+
+.principal > div.voltar {
+    margin-top: 3em;
+}
+
+span.hoje, .agora {
+    width: fit-content;
+    border: solid;
+    border-radius: 0.5em;
+    padding: 0.25em;
+}
+
+.agora > span {
+    font-weight: bold;
+}
+
+.hora-atual, .pre-form {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.maozinha {
+    cursor: pointer;
+}
