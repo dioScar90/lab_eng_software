@@ -23,6 +23,15 @@ function alertTipoDado() {
     divEscrever.insertAdjacentHTML("beforeend", `<p> ${text} </p>`);
 }
 
+function checarNumeroInteiroPositivo(num) {
+    let newNum = +num;
+
+    if (isNaN(newNum) || !Number.isInteger(newNum) || newNum < 0 || num.trim() === '')
+        return false;
+    
+    return newNum;
+}
+
 function numeroPrimo (num) {
     if (num < 1)
         return false;
@@ -45,27 +54,41 @@ function numeroPrimo (num) {
 }
 
 function alertNumeroPrimo() {
-    let numeroInteiro1 = prompt("Digite um número inteiro positivo:", '');
-    let ehNumeroPrimo = numeroPrimo(numeroInteiro1);
+    let dadoDigitado = prompt("Digite um número inteiro positivo:", '');
+    let numeroInteiro = checarNumeroInteiroPositivo(dadoDigitado);
+
+    if (numeroInteiro === false) {
+        alert("Dado digitado não corresponde a um número inteiro positivo.");
+        return;
+    }
+
+    let ehNumeroPrimo = numeroPrimo(numeroInteiro);
 
     if (ehNumeroPrimo === true) {
-        alert("O número " + numeroInteiro1 + " é primo.");
+        alert("O número " + numeroInteiro + " é primo.");
         return;
     }
     
-    alert("O número " + numeroInteiro1 + " não é primo.");
+    alert("O número " + numeroInteiro + " não é primo.");
 }
 
 function alertParImpar() {
-    let numeroInteiro2 = prompt("Digite um número inteiro positivo:", '');
-    let ehPar = +numeroInteiro2 % 2 == 0 ? true : false;
+    let dadoDigitado = prompt("Digite um número inteiro positivo:", '');
+    let numeroInteiro = checarNumeroInteiroPositivo(dadoDigitado);
+
+    if (numeroInteiro === false) {
+        alert("Dado digitado não corresponde a um número inteiro positivo.");
+        return;
+    }
+
+    let ehPar = +numeroInteiro % 2 == 0 ? true : false;
 
     if (ehPar === true) {
-        alert("O número " + numeroInteiro2 + " é par.");
+        alert("O número " + numeroInteiro + " é par.");
         return;
     }
     
-    alert("O número " + numeroInteiro2 + " é ímpar.");
+    alert("O número " + numeroInteiro + " é ímpar.");
 }
 
 function fatorial(num) {
@@ -79,17 +102,17 @@ function fatorial(num) {
 }
 
 function alertFatorial() {
-    let numeroInteiro3 = prompt("Digite um número inteiro positivo:", '');
-    let numeroFatorial = fatorial(+numeroInteiro3);
-    alert("O fatorial do número " + numeroInteiro3 + " é: " + numeroFatorial + ".");
-}
+    let dadoDigitado = prompt("Digite um número inteiro positivo:", '');
+    let numeroInteiro = checarNumeroInteiroPositivo(dadoDigitado);
 
-// async function rodarQuandoCarregar() {
-//     await alertTipoDado();
-//     await alertNumeroPrimo();
-//     await alertParImpar();
-//     await alertFatorial();
-// }
+    if (numeroInteiro === false) {
+        alert("Dado digitado não corresponde a um número inteiro positivo.");
+        return;
+    }
+
+    let numeroFatorial = fatorial(numeroInteiro);
+    alert("O fatorial do número " + dadoDigitado + " é: " + numeroFatorial + ".");
+}
 
 function clicarBotao(event) {
     let idClicado = event.target.id;
@@ -115,4 +138,3 @@ function clicarBotao(event) {
 document.addEventListener("click", clicarBotao);
 
 document.querySelector("#btn-voltar").addEventListener("click", () => location = "../index.html");
-// document.addEventListener("DOMContentLoaded", rodarQuandoCarregar);
