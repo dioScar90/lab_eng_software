@@ -50,9 +50,14 @@ function diaHoje() {
 }
 
 function atualizaHora() {
-    const spanAgora = document.querySelector("#agora > span");
+    const agoraLoading = document.querySelector("#agora-loading");
+    const agora = document.querySelector("#agora");
+
     let tempoAgora = new Date().toLocaleTimeString('pt-BR');
-    spanAgora.innerHTML = tempoAgora;
+
+    agora.firstElementChild.innerHTML = tempoAgora;
+    agoraLoading.classList.add("d-none");
+    agora.classList.remove("d-none");
 }
 
 const iniciarAtualizaHora = () => setInterval(atualizaHora, 1000);

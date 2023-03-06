@@ -24,6 +24,14 @@
     list-style: none;
 }
 
+.botoes-principais > li:not(:first-child) {
+    margin-left: 10px;
+}
+
+.botoes-principais > li:not(:last-child) {
+    margin-right: 10px;
+}
+
 .p-principal {
     font-size: x-large;
 }
@@ -59,4 +67,8 @@ span.hoje, .agora {
 
 .maozinha:disabled {
     cursor: not-allowed;
+}
+
+.d-none {
+    display: none;
 }

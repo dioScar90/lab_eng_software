@@ -15,12 +15,12 @@ function alertTipoDado() {
     if (confirm("Deseja verificar o tipo de dado digitado?")) {
         let typeOf = verificarTipo(dado);
         let text = `O dado digitado <em>${dado}</em> corresponde ao tipo <strong>${typeOf.toUpperCase()}</strong>.`;
-        divEscrever.insertAdjacentHTML("afterbegin", `<p> ${text} </p>`);
+        divEscrever.insertAdjacentHTML("beforeend", `<p> ${text} </p>`);
         return;
     }
     
     let text = "Obrigado por visitar esta página.";
-    divEscrever.insertAdjacentHTML("afterbegin", `<p> ${text} </p>`);
+    divEscrever.insertAdjacentHTML("beforeend", `<p> ${text} </p>`);
 }
 
 function numeroPrimo (num) {
@@ -84,12 +84,35 @@ function alertFatorial() {
     alert("O fatorial do número " + numeroInteiro3 + " é: " + numeroFatorial + ".");
 }
 
-async function rodarQuandoCarregar() {
-    await alertTipoDado();
-    await alertNumeroPrimo();
-    await alertParImpar();
-    await alertFatorial();
+// async function rodarQuandoCarregar() {
+//     await alertTipoDado();
+//     await alertNumeroPrimo();
+//     await alertParImpar();
+//     await alertFatorial();
+// }
+
+function clicarBotao(event) {
+    let idClicado = event.target.id;
+
+    switch (idClicado) {
+        case "atv-tipo" :
+            alertTipoDado();
+            break;
+        case "atv-primo" :
+            alertNumeroPrimo();
+            break;
+        case "atv-par-impar" :
+            alertParImpar();
+            break;
+        case "atv-fatorial" :
+            alertFatorial();
+            break;
+        default :
+            console.log("Errooooou...");
+    }
 }
 
+document.addEventListener("click", clicarBotao);
+
 document.querySelector("#btn-voltar").addEventListener("click", () => location = "../index.html");
-document.addEventListener("DOMContentLoaded", rodarQuandoCarregar);
+// document.addEventListener("DOMContentLoaded", rodarQuandoCarregar);
