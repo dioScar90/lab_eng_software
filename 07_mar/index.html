@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Exercício 3</title>
+
+    <link rel="stylesheet" href="../style.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <!-- 
+        1. Implemente um script JavaScript que exiba a data atual no formato:
+            Quarta-feira, 15 de fevereiro de 2023
+
+        2. Pesquise a utilização do método setTimeout() e implemente um relógio que atualize o horário a cada segundo:
+
+        3. Implemente um script que leia uma palavra ou frase de um campo de texto e exiba em uma janela de alert se o texto é ou não um palíndromo.
+
+        ATUALIZE SEU PROJETO NO GIT E COLOQUE EM PRODUÇÃO
+    -->
+
+    <div class="container">
+        <div class="principal">
+            <div>
+                <p>Escreva o nome de um carro, selecione a marca e clique em <strong>Adicionar</strong>:</p>
+                <form action="" method="post" id="form-carro">
+                    <div class="pre-form">
+                        <div>
+                            <label for="carro">Carro:</label>
+                            <input type="text" name="carro" id="carro" placeholder="Ex.: Hilux." required>
+                        </div>
+
+                        <div>
+                            <label for="marca">Marca:</label>
+                            <select name="marca" id="marca" required>
+                                <option value="" class="d-none">-- Informe --</option>
+                                <option value="1">Toyota</option>
+                                <option value="2">Volkswagen</option>
+                                <option value="3">Honda</option>
+                                <option value="4">Hyundai</option>
+                                <option value="5">Ford</option>
+                                <option value="6">Porsche</option>
+                                <option value="7">Ferrari</option>
+                                <option value="8">Chevrolet</option>
+                                <option value="9">Outro</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <button class="maozinha">Adicionar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div>
+                <p><em>Seus carros aparecerão aqui...</em></p>
+            </div>
+
+            <div class="d-none">
+                <details class="d-none">
+                    <summary>Chevrolet</summary>
+                    <ol>
+                        <li>
+                            
+                        </li>
+                    </ol>
+                </details>
+
+                <details class="d-none">
+                    <summary>Ferrari</summary>
+                    <ol>
+                        <li>
+                            
+                        </li>
+                    </ol>
+                </details>
+
+                <details class="d-none">
+                    <summary>Ford</summary>
+                    <ol>
+                        <li>
+                            
+                        </li>
+                    </ol>
+                </details>
+
+                <details class="d-none">
+                    <summary>Honda</summary>
+                    <ol>
+                        <li>
+                            
+                        </li>
+                    </ol>
+                </details>
+
+                <details class="d-none">
+                    <summary>Hyundai</summary>
+                    <ol>
+                        <li>
+                            
+                        </li>
+                    </ol>
+                </details>
+
+                <details class="d-none">
+                    <summary>Outros</summary>
+                    <ol>
+                        <li>
+                            
+                        </li>
+                    </ol>
+                </details>
+
+                <details class="d-none">
+                    <summary>Porsche</summary>
+                    <ol>
+                        <li>
+                            
+                        </li>
+                    </ol>
+                </details>
+
+                <details class="d-none">
+                    <summary>Toyota</summary>
+                    <ol>
+                        <li>
+                            
+                        </li>
+                    </ol>
+                </details>
+
+                <details class="d-none">
+                    <summary>Volkswagen</summary>
+                    <ol>
+                        <li>
+                            
+                        </li>
+                    </ol>
+                </details>
+
+                <details class="d-none">
+                    <summary>Ford</summary>
+                    <ol>
+                        <li>
+                            
+                        </li>
+                    </ol>
+                </details>
+            </div>
+
+            <div class="voltar">
+                <button class="maozinha" id="btn-voltar">&lt;&lt; Voltar</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

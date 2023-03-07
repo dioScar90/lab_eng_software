@@ -8,10 +8,10 @@ function clicarBotao(event) {
         case "atv-2" :
             location = "28_fev/index.html";
             break;
-        case "atv-4" :
-            console.log("Desativado por enquanto.");
+        case "atv-3" :
+            location = "07_mar/index.html";
             break;
-        case "atv-5" :
+        case "atv-4" :
             console.log("Desativado por enquanto.");
             break;
         default :
