@@ -1,247 +1,248 @@
-String.prototype.ucFirst = function() {
-    return this.charAt(0).toUpperCase() + this.slice(1).toLowerCase();
-}
+// String.prototype.ucFirst = function() {
+//     return this.charAt(0).toUpperCase() + this.slice(1).toLowerCase();
+// }
 
-class Carro {
-    #modelo;
-    #marca;
-    #ano;
-    #cor;
-    #quilometragem;
-    #valorFipe;
+// class Carro {
+//     #modelo;
+//     #marca;
+//     #ano;
+//     #cor;
+//     #quilometragem;
+//     #valorFipe;
 
-    constructor(modelo, marca, ano, cor, quilometragem, valorFipe) {
-        this.#modelo = modelo;
-        this.#marca = marca;
-        this.#ano = +ano;
-        this.#cor = cor;
-        this.#quilometragem = +quilometragem;
-        this.#valorFipe = +valorFipe;
-    }
+//     constructor(modelo, marca, ano, cor, quilometragem, valorFipe) {
+//         this.#modelo = modelo;
+//         this.#marca = marca;
+//         this.#ano = +ano;
+//         this.#cor = cor;
+//         this.#quilometragem = +quilometragem;
+//         this.#valorFipe = +valorFipe;
+//     }
 
-    /* Os setters foram comentados pois não são necessários. */
+//     /* Os setters foram comentados pois não são necessários. */
     
-    get modelo() { return this.#modelo; }
-    // set modelo(value) { this.#modelo = value; }
+//     get modelo() { return this.#modelo; }
+//     // set modelo(value) { this.#modelo = value; }
 
-    get marca() { return this.#marca; }
-    // set marca(value) { this.#marca = value; }
+//     get marca() { return this.#marca; }
+//     // set marca(value) { this.#marca = value; }
 
-    get ano() {return this.#ano; }
-    // set ano(value) { this.#ano = +value; }
+//     get ano() {return this.#ano; }
+//     // set ano(value) { this.#ano = +value; }
 
-    get cor() { return this.#cor; }
-    // set cor(value) { this.#cor = value; }
+//     get cor() { return this.#cor; }
+//     // set cor(value) { this.#cor = value; }
 
-    get quilometragem() {return  this.#quilometragem; }
-    // set quilometragem(value) { this.#quilometragem = +value; }
+//     get quilometragem() {return  this.#quilometragem; }
+//     // set quilometragem(value) { this.#quilometragem = +value; }
 
-    get valorFipe() { return this.#valorFipe; }
-    // set valorFipe(value) { this.#valorFipe = +value; }
+//     get valorFipe() { return this.#valorFipe; }
+//     // set valorFipe(value) { this.#valorFipe = +value; }
     
-    anosUtilizacao() {
-        let anoAtual = new Date().getFullYear();
-        return anoAtual - this.#ano;
-    }
+//     anosUtilizacao() {
+//         let anoAtual = new Date().getFullYear();
+//         return anoAtual - this.#ano;
+//     }
 
-    #valorMercado(kmPorAno) {
-        if (kmPorAno <= 30000)
-            return this.#valorFipe * 1.1;
+//     #valorMercado(kmPorAno) {
+//         if (kmPorAno <= 30000)
+//             return this.#valorFipe * 1.1;
 
-        if (kmPorAno > 30000 && kmPorAno <= 50000)
-            return this.#valorFipe;
+//         if (kmPorAno > 30000 && kmPorAno <= 50000)
+//             return this.#valorFipe;
 
-        return this.#valorFipe * 0.9;
-    }
+//         return this.#valorFipe * 0.9;
+//     }
 
-    valorMercado() {
-        let kmPorAno = this.#quilometragem / this.anosUtilizacao();
-        return this.#valorMercado(kmPorAno);
-    }
-}
+//     valorMercado() {
+//         let kmPorAno = this.#quilometragem / this.anosUtilizacao();
+//         return this.#valorMercado(kmPorAno);
+//     }
+// }
 
-function getValuesDoForm(form) {
-    let dados = new FormData(form);
+// function getValuesDoForm(form) {
+//     let dados = new FormData(form);
     
-    let newObj = {};
-    for (const [name, val] of dados) {
-        newObj[name.replace(/-/g, '_')] = val;
-    }
+//     let newObj = {};
+//     for (const [name, val] of dados) {
+//         newObj[name.replace(/-/g, '_')] = val;
+//     }
 
-    return newObj;
-}
+//     return newObj;
+// }
 
-function compareValues(a, b) {
-    if (a < b)
-        return -1;
+// function compareValues(a, b) {
+//     if (a < b)
+//         return -1;
     
-    if (a > b)
-        return 1;
+//     if (a > b)
+//         return 1;
     
-    return 0;
-}
+//     return 0;
+// }
 
-function sortOrderedList(olElement) {
-    if (olElement.children.length == 0)
-        return;
+// function sortOrderedList(olElement) {
+//     if (olElement.children.length == 0)
+//         return;
     
-    let allLi = [...olElement.querySelectorAll("li")];
+//     let allLi = [...olElement.querySelectorAll("li")];
     
-    allLi.sort( (li1, li2) => {
-        let t1TextContent = li1.innerHTML.trim().toLowerCase();
-        let t2TextContent = li2.innerHTML.trim().toLowerCase();
+//     allLi.sort( (li1, li2) => {
+//         let t1TextContent = li1.innerHTML.trim().toLowerCase();
+//         let t2TextContent = li2.innerHTML.trim().toLowerCase();
         
-        return compareValues(t1TextContent, t2TextContent);
-    });
+//         return compareValues(t1TextContent, t2TextContent);
+//     });
     
-    allLi.forEach(li => olElement.append(li));
-}
+//     allLi.forEach(li => olElement.append(li));
+// }
 
-function adicionodelorroSimples(values) {
-    let modelo = values.modelo_simples;
-    let marca = values.marca_simples;
+// function adicionodelorroSimples(values) {
+//     let modelo = values.modelo_simples;
+//     let marca = values.marca_simples;
 
-    const details = document.querySelector("#details-" + marca);
-    const ol = details.lastElementChild;
+//     const details = document.querySelector("#details-" + marca);
+//     const ol = details.lastElementChild;
 
-    ol.insertAdjacentHTML("beforeend", `<li>${modelo.ucFirst()}</li>`);
+//     ol.insertAdjacentHTML("beforeend", `<li>${modelo.ucFirst()}</li>`);
 
-    if (details.classList.contains("d-none"))
-        details.classList.remove("d-none");
+//     if (details.classList.contains("d-none"))
+//         details.classList.remove("d-none");
 
-    if (details.closest("div").classList.contains("d-none")) {
-        details.closest("div").classList.remove("d-none");
-        details.closest("div").previousElementSibling.classList.add("d-none");
-    }
+//     if (details.closest("div").classList.contains("d-none")) {
+//         details.closest("div").classList.remove("d-none");
+//         details.closest("div").previousElementSibling.classList.add("d-none");
+//     }
 
-    sortOrderedList(ol);
+//     sortOrderedList(ol);
 
-    closeAllDetails();
-    details.open = true;
-}
+//     closeAllDetails();
+//     details.open = true;
+// }
 
-function aparecerDetalhesCarro(carro) {
-    const divDetalhes = document.querySelector("#div-detalhes");
-    const dlDetalhes = divDetalhes.querySelector("#dl-detalhes");
-    const ddModelo = dlDetalhes.querySelector("#dd-modelo");
-    const ddMarca = dlDetalhes.querySelector("#dd-marca");
-    const ddAno = dlDetalhes.querySelector("#dd-ano");
-    const ddCor = dlDetalhes.querySelector("#dd-cor");
-    const ddKm = dlDetalhes.querySelector("#dd-quilometragem");
-    const ddValorFipe = dlDetalhes.querySelector("#dd-valor-fipe");
-    const ddAnosUtilizacao = dlDetalhes.querySelector("#dd-anos-utilizacao");
-    const ddValorMercado = dlDetalhes.querySelector("#dd-valor-mercado");
+// function aparecerDetalhesCarro(carro) {
+//     const divDetalhes = document.querySelector("#div-detalhes");
+//     const dlDetalhes = divDetalhes.querySelector("#dl-detalhes");
+//     const ddModelo = dlDetalhes.querySelector("#dd-modelo");
+//     const ddMarca = dlDetalhes.querySelector("#dd-marca");
+//     const ddAno = dlDetalhes.querySelector("#dd-ano");
+//     const ddCor = dlDetalhes.querySelector("#dd-cor");
+//     const ddKm = dlDetalhes.querySelector("#dd-quilometragem");
+//     const ddValorFipe = dlDetalhes.querySelector("#dd-valor-fipe");
+//     const ddAnosUtilizacao = dlDetalhes.querySelector("#dd-anos-utilizacao");
+//     const ddValorMercado = dlDetalhes.querySelector("#dd-valor-mercado");
 
-    ddModelo.innerHTML = carro.modelo.ucFirst();
-    ddMarca.innerHTML = carro.marca.ucFirst();
-    ddAno.innerHTML = carro.ano;
-    ddCor.innerHTML = carro.cor.ucFirst();
-    ddKm.innerHTML = carro.quilometragem.toLocaleString("pt-BR");
-    ddValorFipe.innerHTML = carro.valorFipe.toLocaleString("pt-BR", {style: 'currency', currency: 'BRL'});
-    ddAnosUtilizacao.innerHTML = carro.anosUtilizacao();
-    ddValorMercado.innerHTML = carro.valorMercado().toLocaleString("pt-BR", {style: 'currency', currency: 'BRL'});
+//     ddModelo.innerHTML = carro.modelo.ucFirst();
+//     ddMarca.innerHTML = carro.marca.ucFirst();
+//     ddAno.innerHTML = carro.ano;
+//     ddCor.innerHTML = carro.cor.ucFirst();
+//     ddKm.innerHTML = carro.quilometragem.toLocaleString("pt-BR");
+//     ddValorFipe.innerHTML = carro.valorFipe.toLocaleString("pt-BR", {style: 'currency', currency: 'BRL'});
+//     ddAnosUtilizacao.innerHTML = carro.anosUtilizacao();
+//     ddValorMercado.innerHTML = carro.valorMercado().toLocaleString("pt-BR", {style: 'currency', currency: 'BRL'});
 
-    divDetalhes.previousElementSibling.classList.add("d-none");
-    divDetalhes.classList.remove("d-none");
-}
+//     divDetalhes.previousElementSibling.classList.add("d-none");
+//     divDetalhes.classList.remove("d-none");
+// }
 
-function adicionodelorroDetalhado(values) {
-    let modelo = values.modelo_detalhado;
-    let marca = values.marca_detalhado;
-    let ano = values.ano_detalhado;
-    let cor = values.cor_detalhado;
-    let quilometragem = values.quilometragem_detalhado;
-    let valorFipe = values.valor_fipe_detalhado;
+// function adicionodelorroDetalhado(values) {
+//     let modelo = values.modelo_detalhado;
+//     let marca = values.marca_detalhado;
+//     let ano = values.ano_detalhado;
+//     let cor = values.cor_detalhado;
+//     let quilometragem = values.quilometragem_detalhado;
+//     let valorFipe = values.valor_fipe_detalhado;
 
-    const carro = new Carro(modelo, marca, ano, cor, quilometragem, valorFipe);
+//     const carro = new Carro(modelo, marca, ano, cor, quilometragem, valorFipe);
 
-    aparecerDetalhesCarro(carro);
-}
+//     aparecerDetalhesCarro(carro);
+// }
 
-function adicionodelorro(e) {
-    e.preventDefault();
-    let values = getValuesDoForm(e.target);
+// function adicionodelorro(e) {
+//     e.preventDefault();
+//     let values = getValuesDoForm(e.target);
 
-    if (e.target.id == "form-carro-simples") {
-        adicionodelorroSimples(values);
-        return;
-    }
+//     if (e.target.id == "form-carro-simples") {
+//         adicionodelorroSimples(values);
+//         return;
+//     }
 
-    adicionodelorroDetalhado(values);
-}
+//     adicionodelorroDetalhado(values);
+// }
 
-function closeAllDetails() {
-    const allDetails = [...document.querySelectorAll("details:not(.d-none):has(> summary.list-items)")];
+// function closeAllDetails() {
+//     const allDetails = [...document.querySelectorAll("details:not(.d-none):has(> summary.list-items)")];
     
-    allDetails.forEach((detail) => {
-        detail.open = false;
-    });
-}
+//     allDetails.forEach((detail) => {
+//         detail.open = false;
+//     });
+// }
 
-function limpodelorrosSimples() {
-    const divCarros = document.querySelector("#div-carros-simples");
-    const allDetails = [...divCarros.querySelectorAll("details")];
+// function limpodelorrosSimples() {
+//     const divCarros = document.querySelector("#div-carros-simples");
+//     const allDetails = [...divCarros.querySelectorAll("details")];
     
-    allDetails.forEach((detail) => {
-        detail.classList.add("d-none");
-        detail.querySelector("ol").innerHTML = '';
-    });
+//     allDetails.forEach((detail) => {
+//         detail.classList.add("d-none");
+//         detail.querySelector("ol").innerHTML = '';
+//     });
 
-    divCarros.classList.add("d-none");
-    divCarros.previousElementSibling.classList.remove("d-none");
-}
+//     divCarros.classList.add("d-none");
+//     divCarros.previousElementSibling.classList.remove("d-none");
+// }
 
-function limpodelorrosDetalhado() {
-    const divDetalhes = document.querySelector("#div-detalhes");
-    const allDd = [...divDetalhes.firstElementChild.querySelectorAll("dd")];
+// function limpodelorrosDetalhado() {
+//     const divDetalhes = document.querySelector("#div-detalhes");
+//     const allDd = [...divDetalhes.firstElementChild.querySelectorAll("dd")];
     
-    allDd.forEach( (dd) => dd.innerHTML = '' );
-    divDetalhes.classList.add("d-none");
-    divDetalhes.previousElementSibling.classList.remove("d-none");
-}
+//     allDd.forEach( (dd) => dd.innerHTML = '' );
+//     divDetalhes.classList.add("d-none");
+//     divDetalhes.previousElementSibling.classList.remove("d-none");
+// }
 
-function limpodelorros(e) {
-    if (e.target.id == "form-carro-simples") {
-        limpodelorrosSimples();
-        return;
-    }
+// function limpodelorros(e) {
+//     if (e.target.id == "form-carro-simples") {
+//         limpodelorrosSimples();
+//         return;
+//     }
 
-    limpodelorrosDetalhado();
-}
+//     limpodelorrosDetalhado();
+// }
 
-function mudarCorTextoResumo(fechouTodos = false) {
-    if (fechouTodos === true) {
-        document.querySelector("div#texto-resumo").classList.remove("color-grey");
-        return;
-    }
+// function mudarCorTextoResumo(fechouTodos = false) {
+//     if (fechouTodos === true) {
+//         document.querySelector("div#texto-resumo").classList.remove("color-grey");
+//         return;
+//     }
 
-    document.querySelector("div#texto-resumo").classList.add("color-grey");
-}
+//     document.querySelector("div#texto-resumo").classList.add("color-grey");
+// }
 
-function fecharOutroDetail(idAberto) {
-    let strSelector = idAberto == "exercicio-1" ? "details#exercicio-2" : "details#exercicio-1";
-    document.querySelector(strSelector).open = false;
-}
+// function fecharOutroDetail(idAberto) {
+//     let strSelector = idAberto == "exercicio-1" ? "details#exercicio-2" : "details#exercicio-1";
+//     document.querySelector(strSelector).open = false;
+// }
 
-function clicouDetailPrincipal(e) {
-    if (e.target.closest("details").open === true) {
-        mudarCorTextoResumo(true);
-        return;
-    }
+// function clicouDetailPrincipal(e) {
+//     if (e.target.closest("details").open === true) {
+//         mudarCorTextoResumo(true);
+//         return;
+//     }
 
-    let id = e.target.closest("details").id;
-    fecharOutroDetail(id);
-    mudarCorTextoResumo();
-}
+//     let id = e.target.closest("details").id;
+//     fecharOutroDetail(id);
+//     mudarCorTextoResumo();
+// }
 
-async function rodarQuandoCarregar() {
-    console.log("Entrou.");
-}
+// async function rodarQuandoCarregar() {
+//     console.log("Entrou.");
+// }
 
-document.querySelector("#form-carro-simples").addEventListener("submit", adicionodelorro);
-document.querySelector("#form-carro-simples").addEventListener("reset", limpodelorros);
-document.querySelector("#form-carro-detalhado").addEventListener("submit", adicionodelorro);
-document.querySelector("#form-carro-detalhado").addEventListener("reset", limpodelorros);
-document.querySelectorAll("div.principal > details > summary").forEach( item => item.addEventListener("click", clicouDetailPrincipal) );
-document.querySelector("#btn-voltar").addEventListener("click", () => location = "../index.html");
-document.addEventListener("DOMContentLoaded", rodarQuandoCarregar);
+// document.querySelector("#form-carro-simples").addEventListener("submit", adicionodelorro);
+// document.querySelector("#form-carro-simples").addEventListener("reset", limpodelorros);
+// document.querySelector("#form-carro-detalhado").addEventListener("submit", adicionodelorro);
+// document.querySelector("#form-carro-detalhado").addEventListener("reset", limpodelorros);
+// document.querySelectorAll("div.principal > details > summary").forEach( item => item.addEventListener("click", clicouDetailPrincipal) );
+// document.querySelector("#btn-voltar").addEventListener("click", () => location = "../index.html");
+// document.addEventListener("DOMContentLoaded", rodarQuandoCarregar);
+document.addEventListener("DOMContentLoaded", () => location.href = "../index.html");
