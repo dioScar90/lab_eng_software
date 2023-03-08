@@ -12,145 +12,207 @@
 </head>
 <body>
     <!-- 
-        1. Implemente um script JavaScript que exiba a data atual no formato:
-            Quarta-feira, 15 de fevereiro de 2023
+        1. Implemente um script com um array cujos valores sejam adicionados dinamicamente pelo usuário utilizando-se formulário. A cada nova inserção exiba todos os dados cadastrados em ordem alfabética em uma lista ordenada do html.
 
-        2. Pesquise a utilização do método setTimeout() e implemente um relógio que atualize o horário a cada segundo:
-
-        3. Implemente um script que leia uma palavra ou frase de um campo de texto e exiba em uma janela de alert se o texto é ou não um palíndromo.
-
-        ATUALIZE SEU PROJETO NO GIT E COLOQUE EM PRODUÇÃO
+        2. Implemente um formulario HTML para input das características de um carro:
+            marca, modelo, ano, cor, kilometragem, valor_fipe
+        Implemente um script que armazene as características preenchidas no formulário em um objeto e que contenha, além das propriedades acima, dois métodos:
+            anosUtilizacao() –deve retornar quantos anos de utilização o veículo possui;
+            valorMercado() –deve retornar o valor de mercado considerando a seguinte regra:
+                carros que rodam até 30.000 km/ano –110% do valor_fipe
+                carros que rodam entre 30.000 e 50.000 km/ano –100% do valor_fipe
+                carros que rodam mais que 50.000 km/ano –90% do valor_fipe
+        Preenchidos os campos os métodos criados devem ser utilizados para exibir quantos anos o veículo tem de utilização juntamente com seu valor de mercado.
     -->
 
     <div class="container">
         <div class="principal">
-            <div>
-                <p>Escreva o nome de um carro, selecione a marca e clique em <strong>Adicionar</strong>:</p>
-                <form action="" method="post" id="form-carro">
-                    <div class="pre-form">
-                        <div>
-                            <label for="carro">Carro:</label>
-                            <input type="text" name="carro" id="carro" placeholder="Ex.: Hilux." required>
+            <div id="texto-resumo">
+                <p>Clique em um dos itens abaixo, conforme segue:</p>
+                <ul>
+                    <li>1. Exercício de implementar valores em um array.</li>
+                    <li>2. Exercício de inserir dados de carro em uma classe.</li>
+                </ul>
+            </div>
+            <details id="exercicio-1" class="my-1 top-of-list">
+                <summary>Exercício 1</summary>
+                <div>
+                    <p>Escreva o nome de um carro, selecione a marca e clique em <strong>Adicionar</strong>:</p>
+    
+                    <form action="" method="post" id="form-carro-simples">
+                        <div class="pre-form">
+                            <div>
+                                <label for="marca-simples">Marca:</label>
+                                <input type="text" name="marca-simples" id="marca-simples" placeholder="Ex.: Hilux." required>
+                            </div>
+    
+                            <div>
+                                <label for="modelo-simples">Modelo:</label>
+                                <select name="modelo-simples" id="modelo-simples" required>
+                                    <option value="" class="d-none">-- Informe --</option>
+                                    <option value="toyota">Toyota</option>
+                                    <option value="volkswagen">Volkswagen</option>
+                                    <option value="honda">Honda</option>
+                                    <option value="hyundai">Hyundai</option>
+                                    <option value="ford">Ford</option>
+                                    <option value="porsche">Porsche</option>
+                                    <option value="ferrari">Ferrari</option>
+                                    <option value="chevrolet">Chevrolet</option>
+                                    <option value="outros">Outro</option>
+                                </select>
+                            </div>
+    
+                            <div>
+                                <button class="maozinha">Adicionar</button>
+                            </div>
                         </div>
-
-                        <div>
-                            <label for="marca">Marca:</label>
-                            <select name="marca" id="marca" required>
-                                <option value="" class="d-none">-- Informe --</option>
-                                <option value="1">Toyota</option>
-                                <option value="2">Volkswagen</option>
-                                <option value="3">Honda</option>
-                                <option value="4">Hyundai</option>
-                                <option value="5">Ford</option>
-                                <option value="6">Porsche</option>
-                                <option value="7">Ferrari</option>
-                                <option value="8">Chevrolet</option>
-                                <option value="9">Outro</option>
-                            </select>
-                        </div>
-
-                        <div>
-                            <button class="maozinha">Adicionar</button>
-                        </div>
+                    </form>
+    
+                    <div class="my-1 flex-evenly-center">
+                        <button type="reset" id="button-limpar" class="maozinha" form="form-carro-simples">Limpar tudo</button>
                     </div>
-                </form>
-            </div>
+                </div>
+    
+                <div id="div-sem-carros">
+                    <p><em>Seus carros aparecerão aqui...</em></p>
+                </div>
+    
+                <div id="div-carros-simples" class="d-none">
+                    <details id="details-chevrolet" class="d-none">
+                        <summary class="list-items">Chevrolet</summary>
+                        <ol></ol>
+                    </details>
+    
+                    <details id="details-ferrari" class="d-none">
+                        <summary class="list-items">Ferrari</summary>
+                        <ol></ol>
+                    </details>
+    
+                    <details id="details-ford" class="d-none">
+                        <summary class="list-items">Ford</summary>
+                        <ol></ol>
+                    </details>
+    
+                    <details id="details-honda" class="d-none">
+                        <summary class="list-items">Honda</summary>
+                        <ol></ol>
+                    </details>
+    
+                    <details id="details-hyundai" class="d-none">
+                        <summary class="list-items">Hyundai</summary>
+                        <ol></ol>
+                    </details>
+    
+                    <details id="details-porsche" class="d-none">
+                        <summary class="list-items">Porsche</summary>
+                        <ol></ol>
+                    </details>
+    
+                    <details id="details-toyota" class="d-none">
+                        <summary class="list-items">Toyota</summary>
+                        <ol></ol>
+                    </details>
+    
+                    <details id="details-volkswagen" class="d-none">
+                        <summary class="list-items">Volkswagen</summary>
+                        <ol></ol>
+                    </details>
+    
+                    <details id="details-outros" class="d-none">
+                        <summary class="list-items">Outros</summary>
+                        <ol></ol>
+                    </details>
+                </div>
+            </details>
+            
+            <details id="exercicio-2" class="my-1 top-of-list">
+                <summary>Exercício 2</summary>
+                <div>
+                    <p>Escreva o nome de um carro, selecione a marca e clique em <strong>Adicionar</strong>:</p>
+    
+                    <form action="" method="post" id="form-carro-detalhado">
+                        <div class="pre-form-carro">
+                            <div>
+                                <label for="marca-detalhado">Marca:</label>
+                                <input type="text" name="marca-detalhado" id="marca-detalhado" placeholder="Ex.: Hilux." required>
+                            </div>
 
-            <div>
-                <p><em>Seus carros aparecerão aqui...</em></p>
-            </div>
-
-            <div class="d-none">
-                <details class="d-none">
-                    <summary>Chevrolet</summary>
-                    <ol>
-                        <li>
+                            <div>
+                                <label for="ano-detalhado">Ano:</label>
+                                <input type="number" min="1900" step="1" name="ano-detalhado" id="ano-detalhado" placeholder="Ex.: 2022." required>
+                            </div>
                             
-                        </li>
-                    </ol>
-                </details>
+                            <div>
+                                <label for="cor-detalhado">Cor:</label>
+                                <input type="text" name="cor-detalhado" id="cor-detalhado" placeholder="Ex.: Branco." required>
+                            </div>
 
-                <details class="d-none">
-                    <summary>Ferrari</summary>
-                    <ol>
-                        <li>
-                            
-                        </li>
-                    </ol>
-                </details>
+                            <div>
+                                <label for="quilometragem-detalhado">Quilometragem:</label>
+                                <input type="number" min="0" step="1" name="quilometragem-detalhado" id="quilometragem-detalhado" placeholder="Ex.: 50000." required>
+                            </div>
 
-                <details class="d-none">
-                    <summary>Ford</summary>
-                    <ol>
-                        <li>
-                            
-                        </li>
-                    </ol>
-                </details>
+                            <div>
+                                <label for="valor-fipe-detalhado">Valor Fipe (em R$):</label>
+                                <input type="number" min="1000.00" step="1" name="valor-fipe-detalhado" id="valor-fipe-detalhado" placeholder="Ex.: 120000." required>
+                            </div>
+    
+                            <div>
+                                <label for="modelo-detalhado">Modelo:</label>
+                                <select name="modelo-detalhado" id="modelo-detalhado" required>
+                                    <option value="" class="d-none">-- Informe --</option>
+                                    <option value="toyota">Toyota</option>
+                                    <option value="volkswagen">Volkswagen</option>
+                                    <option value="honda">Honda</option>
+                                    <option value="hyundai">Hyundai</option>
+                                    <option value="ford">Ford</option>
+                                    <option value="porsche">Porsche</option>
+                                    <option value="ferrari">Ferrari</option>
+                                    <option value="chevrolet">Chevrolet</option>
+                                    <option value="outros">Outro</option>
+                                </select>
+                            </div>
+    
+                            <div>
+                                <button type="reset" id="button-limpar" class="maozinha">Limpar tudo</button>
+                                <button class="maozinha">Adicionar</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+    
+                <div id="div-sem-detalhes">
+                    <p><em>Os detalhes do seu carro aparecerão aqui...</em></p>
+                </div>
 
-                <details class="d-none">
-                    <summary>Honda</summary>
-                    <ol>
-                        <li>
-                            
-                        </li>
-                    </ol>
-                </details>
+                <div id="div-detalhes" class="d-none div-detalhes">
+                    <dl class="detalhes" id="dl-detalhes">
+                        <dt class="" id="dt-marca">Marca</dt>
+                        <dd class="" id="dd-marca"></dd>
+    
+                        <dt class="" id="dt-modelo">Modelo</dt>
+                        <dd class="" id="dd-modelo"></dd>
+    
+                        <dt class="" id="dt-ano">Ano</dt>
+                        <dd class="" id="dd-ano"></dd>
+    
+                        <dt class="" id="dt-cor">Cor</dt>
+                        <dd class="" id="dd-cor"></dd>
+    
+                        <dt class="" id="dt-quilometragem">Quilometragem</dt>
+                        <dd class="" id="dd-quilometragem"></dd>
+    
+                        <dt class="" id="dt-valor-fipe">Valor Fipe</dt>
+                        <dd class="" id="dd-valor-fipe"></dd>
 
-                <details class="d-none">
-                    <summary>Hyundai</summary>
-                    <ol>
-                        <li>
-                            
-                        </li>
-                    </ol>
-                </details>
+                        <dt class="" id="dt-anos-utilizacao">Anos de Utilização</dt>
+                        <dd class="" id="dd-anos-utilizacao"></dd>
 
-                <details class="d-none">
-                    <summary>Outros</summary>
-                    <ol>
-                        <li>
-                            
-                        </li>
-                    </ol>
-                </details>
-
-                <details class="d-none">
-                    <summary>Porsche</summary>
-                    <ol>
-                        <li>
-                            
-                        </li>
-                    </ol>
-                </details>
-
-                <details class="d-none">
-                    <summary>Toyota</summary>
-                    <ol>
-                        <li>
-                            
-                        </li>
-                    </ol>
-                </details>
-
-                <details class="d-none">
-                    <summary>Volkswagen</summary>
-                    <ol>
-                        <li>
-                            
-                        </li>
-                    </ol>
-                </details>
-
-                <details class="d-none">
-                    <summary>Ford</summary>
-                    <ol>
-                        <li>
-                            
-                        </li>
-                    </ol>
-                </details>
-            </div>
+                        <dt class="" id="dt-valor-mercado">Valor de Mercado</dt>
+                        <dd class="" id="dd-valor-mercado"></dd>
+                    </dl>
+                </div>
+            </details>
 
             <div class="voltar">
                 <button class="maozinha" id="btn-voltar">&lt;&lt; Voltar</button>

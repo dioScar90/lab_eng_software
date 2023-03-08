@@ -15,6 +15,11 @@
     margin-top: 3em;
 }
 
+.my-1 {
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
 .botoes-principais {
     display: flex;
     justify-content: space-between;
@@ -56,19 +61,83 @@ span.hoje, .agora {
     font-weight: bold;
 }
 
-.hora-atual, .pre-form {
+.hora-atual, .pre-form, .flex-evenly-center {
+    max-width: 500px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.pre-form-carro {
+    max-width: 700px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.pre-form-carro > div {
+    flex: 50%;
+}
+
+.pre-form-carro > div:has(button) {
+    flex: 100%;
     display: flex;
     justify-content: space-evenly;
 }
 
-.maozinha {
+div.div-detalhes {
+    max-width: 700px;
+}
+
+dl.detalhes {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+dl.detalhes > dt {
+    flex: 25%;
+    font-weight: bold;
+}
+
+dl.detalhes > dt:not(:first-child), dl.detalhes > dd:not(:nth-child(2)) {
+    margin-top: 1em;
+}
+
+dl.detalhes > dd {
+    flex: 50%;
+}
+
+.maozinha, summary {
     cursor: pointer;
+}
+
+details.top-of-list {
+    margin-top: 3em;
+}
+
+details.top-of-list > summary {
+    margin-left: -2em;
+}
+
+details[open] > summary.list-items {
+    list-style-type: disc;
+}
+
+details > summary.list-items {
+    list-style-type: circle;
 }
 
 .maozinha:disabled {
     cursor: not-allowed;
 }
 
+.d-block {
+    display: block !important;
+}
+
 .d-none {
-    display: none;
+    display: none !important;
+}
+
+.color-grey {
+    color: grey;
 }
