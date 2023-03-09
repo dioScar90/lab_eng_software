@@ -1,248 +1,65 @@
-// String.prototype.ucFirst = function() {
-//     return this.charAt(0).toUpperCase() + this.slice(1).toLowerCase();
-// }
+String.prototype.ucFirst = function() {
+    let newStr = '';
+    let arrStr = this.trim().split(' ');
+    arrStr.forEach((str, i, arrStr) => {
+        newStr += str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
 
-// class Carro {
-//     #modelo;
-//     #marca;
-//     #ano;
-//     #cor;
-//     #quilometragem;
-//     #valorFipe;
+        if (i != arrStr.length - 1)
+            newStr += ' ';
+    });
+    return newStr;
+}
 
-//     constructor(modelo, marca, ano, cor, quilometragem, valorFipe) {
-//         this.#modelo = modelo;
-//         this.#marca = marca;
-//         this.#ano = +ano;
-//         this.#cor = cor;
-//         this.#quilometragem = +quilometragem;
-//         this.#valorFipe = +valorFipe;
-//     }
+class Pessoa {
+    #nome;
+    #email;
+    #dataNascimento;
 
-//     /* Os setters foram comentados pois não são necessários. */
-    
-//     get modelo() { return this.#modelo; }
-//     // set modelo(value) { this.#modelo = value; }
+    constructor(nome, email, dataNascimento) {
+        this.#nome = nome;
+        this.#email = email;
+        this.#dataNascimento = new Date(dataNascimento + "T00:00");
+    }
+}
 
-//     get marca() { return this.#marca; }
-//     // set marca(value) { this.#marca = value; }
+class Aluno {
+    #curso;
+    #matricula;
 
-//     get ano() {return this.#ano; }
-//     // set ano(value) { this.#ano = +value; }
+    constructor(nome, email, dataNascimento, curso, matricula) {
+        super(nome, email, dataNascimento);
+        this.#curso = curso;
+        this.#matricula = matricula;
+    }
+}
 
-//     get cor() { return this.#cor; }
-//     // set cor(value) { this.#cor = value; }
+class Professor {
+    #area;
+    #matricula;
+    #lattes;
 
-//     get quilometragem() {return  this.#quilometragem; }
-//     // set quilometragem(value) { this.#quilometragem = +value; }
+    constructor(nome, email, dataNascimento, area, matricula, lattes) {
+        super(nome, email, dataNascimento);
+        this.#area = area;
+        this.#matricula = matricula;
+        this.#lattes = lattes;
+    }
+}
 
-//     get valorFipe() { return this.#valorFipe; }
-//     // set valorFipe(value) { this.#valorFipe = +value; }
-    
-//     anosUtilizacao() {
-//         let anoAtual = new Date().getFullYear();
-//         return anoAtual - this.#ano;
-//     }
+class ToDoList {
+    #descricao;
+    #endereco;
+    #cidade;
+    #dataHora;
+    #ativo;
 
-//     #valorMercado(kmPorAno) {
-//         if (kmPorAno <= 30000)
-//             return this.#valorFipe * 1.1;
+    constructor(descricao, endereco, cidade, data, hora, ativo = false) {
+        this.#descricao = descricao;
+        this.#endereco = endereco;
+        this.#cidade = cidade;
+        this.#dataHora = new Date(data + hora);
+        this.#ativo = ativo;
+    }
+}
 
-//         if (kmPorAno > 30000 && kmPorAno <= 50000)
-//             return this.#valorFipe;
-
-//         return this.#valorFipe * 0.9;
-//     }
-
-//     valorMercado() {
-//         let kmPorAno = this.#quilometragem / this.anosUtilizacao();
-//         return this.#valorMercado(kmPorAno);
-//     }
-// }
-
-// function getValuesDoForm(form) {
-//     let dados = new FormData(form);
-    
-//     let newObj = {};
-//     for (const [name, val] of dados) {
-//         newObj[name.replace(/-/g, '_')] = val;
-//     }
-
-//     return newObj;
-// }
-
-// function compareValues(a, b) {
-//     if (a < b)
-//         return -1;
-    
-//     if (a > b)
-//         return 1;
-    
-//     return 0;
-// }
-
-// function sortOrderedList(olElement) {
-//     if (olElement.children.length == 0)
-//         return;
-    
-//     let allLi = [...olElement.querySelectorAll("li")];
-    
-//     allLi.sort( (li1, li2) => {
-//         let t1TextContent = li1.innerHTML.trim().toLowerCase();
-//         let t2TextContent = li2.innerHTML.trim().toLowerCase();
-        
-//         return compareValues(t1TextContent, t2TextContent);
-//     });
-    
-//     allLi.forEach(li => olElement.append(li));
-// }
-
-// function adicionodelorroSimples(values) {
-//     let modelo = values.modelo_simples;
-//     let marca = values.marca_simples;
-
-//     const details = document.querySelector("#details-" + marca);
-//     const ol = details.lastElementChild;
-
-//     ol.insertAdjacentHTML("beforeend", `<li>${modelo.ucFirst()}</li>`);
-
-//     if (details.classList.contains("d-none"))
-//         details.classList.remove("d-none");
-
-//     if (details.closest("div").classList.contains("d-none")) {
-//         details.closest("div").classList.remove("d-none");
-//         details.closest("div").previousElementSibling.classList.add("d-none");
-//     }
-
-//     sortOrderedList(ol);
-
-//     closeAllDetails();
-//     details.open = true;
-// }
-
-// function aparecerDetalhesCarro(carro) {
-//     const divDetalhes = document.querySelector("#div-detalhes");
-//     const dlDetalhes = divDetalhes.querySelector("#dl-detalhes");
-//     const ddModelo = dlDetalhes.querySelector("#dd-modelo");
-//     const ddMarca = dlDetalhes.querySelector("#dd-marca");
-//     const ddAno = dlDetalhes.querySelector("#dd-ano");
-//     const ddCor = dlDetalhes.querySelector("#dd-cor");
-//     const ddKm = dlDetalhes.querySelector("#dd-quilometragem");
-//     const ddValorFipe = dlDetalhes.querySelector("#dd-valor-fipe");
-//     const ddAnosUtilizacao = dlDetalhes.querySelector("#dd-anos-utilizacao");
-//     const ddValorMercado = dlDetalhes.querySelector("#dd-valor-mercado");
-
-//     ddModelo.innerHTML = carro.modelo.ucFirst();
-//     ddMarca.innerHTML = carro.marca.ucFirst();
-//     ddAno.innerHTML = carro.ano;
-//     ddCor.innerHTML = carro.cor.ucFirst();
-//     ddKm.innerHTML = carro.quilometragem.toLocaleString("pt-BR");
-//     ddValorFipe.innerHTML = carro.valorFipe.toLocaleString("pt-BR", {style: 'currency', currency: 'BRL'});
-//     ddAnosUtilizacao.innerHTML = carro.anosUtilizacao();
-//     ddValorMercado.innerHTML = carro.valorMercado().toLocaleString("pt-BR", {style: 'currency', currency: 'BRL'});
-
-//     divDetalhes.previousElementSibling.classList.add("d-none");
-//     divDetalhes.classList.remove("d-none");
-// }
-
-// function adicionodelorroDetalhado(values) {
-//     let modelo = values.modelo_detalhado;
-//     let marca = values.marca_detalhado;
-//     let ano = values.ano_detalhado;
-//     let cor = values.cor_detalhado;
-//     let quilometragem = values.quilometragem_detalhado;
-//     let valorFipe = values.valor_fipe_detalhado;
-
-//     const carro = new Carro(modelo, marca, ano, cor, quilometragem, valorFipe);
-
-//     aparecerDetalhesCarro(carro);
-// }
-
-// function adicionodelorro(e) {
-//     e.preventDefault();
-//     let values = getValuesDoForm(e.target);
-
-//     if (e.target.id == "form-carro-simples") {
-//         adicionodelorroSimples(values);
-//         return;
-//     }
-
-//     adicionodelorroDetalhado(values);
-// }
-
-// function closeAllDetails() {
-//     const allDetails = [...document.querySelectorAll("details:not(.d-none):has(> summary.list-items)")];
-    
-//     allDetails.forEach((detail) => {
-//         detail.open = false;
-//     });
-// }
-
-// function limpodelorrosSimples() {
-//     const divCarros = document.querySelector("#div-carros-simples");
-//     const allDetails = [...divCarros.querySelectorAll("details")];
-    
-//     allDetails.forEach((detail) => {
-//         detail.classList.add("d-none");
-//         detail.querySelector("ol").innerHTML = '';
-//     });
-
-//     divCarros.classList.add("d-none");
-//     divCarros.previousElementSibling.classList.remove("d-none");
-// }
-
-// function limpodelorrosDetalhado() {
-//     const divDetalhes = document.querySelector("#div-detalhes");
-//     const allDd = [...divDetalhes.firstElementChild.querySelectorAll("dd")];
-    
-//     allDd.forEach( (dd) => dd.innerHTML = '' );
-//     divDetalhes.classList.add("d-none");
-//     divDetalhes.previousElementSibling.classList.remove("d-none");
-// }
-
-// function limpodelorros(e) {
-//     if (e.target.id == "form-carro-simples") {
-//         limpodelorrosSimples();
-//         return;
-//     }
-
-//     limpodelorrosDetalhado();
-// }
-
-// function mudarCorTextoResumo(fechouTodos = false) {
-//     if (fechouTodos === true) {
-//         document.querySelector("div#texto-resumo").classList.remove("color-grey");
-//         return;
-//     }
-
-//     document.querySelector("div#texto-resumo").classList.add("color-grey");
-// }
-
-// function fecharOutroDetail(idAberto) {
-//     let strSelector = idAberto == "exercicio-1" ? "details#exercicio-2" : "details#exercicio-1";
-//     document.querySelector(strSelector).open = false;
-// }
-
-// function clicouDetailPrincipal(e) {
-//     if (e.target.closest("details").open === true) {
-//         mudarCorTextoResumo(true);
-//         return;
-//     }
-
-//     let id = e.target.closest("details").id;
-//     fecharOutroDetail(id);
-//     mudarCorTextoResumo();
-// }
-
-// async function rodarQuandoCarregar() {
-//     console.log("Entrou.");
-// }
-
-// document.querySelector("#form-carro-simples").addEventListener("submit", adicionodelorro);
-// document.querySelector("#form-carro-simples").addEventListener("reset", limpodelorros);
-// document.querySelector("#form-carro-detalhado").addEventListener("submit", adicionodelorro);
-// document.querySelector("#form-carro-detalhado").addEventListener("reset", limpodelorros);
-// document.querySelectorAll("div.principal > details > summary").forEach( item => item.addEventListener("click", clicouDetailPrincipal) );
-// document.querySelector("#btn-voltar").addEventListener("click", () => location = "../index.html");
-// document.addEventListener("DOMContentLoaded", rodarQuandoCarregar);
 document.addEventListener("DOMContentLoaded", () => location.href = "../index.html");
