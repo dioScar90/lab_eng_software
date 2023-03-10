@@ -125,7 +125,7 @@
                 </div>
             </details>
             
-            <details id="exercicio-2" class="my-1 top-of-list">
+            <details id="exercicio-2" class="my-1 top-of-list" open>
                 <summary>Exercício 2</summary>
                 <div>
                     <p>Escreva o nome de um carro, selecione a modelo e clique em <strong>Adicionar</strong>:</p>
@@ -133,28 +133,28 @@
                     <form action="" method="post" id="form-carro-detalhado">
                         <div class="pre-form-carro">
                             <div>
-                                <label for="modelo-detalhado">Modelo:</label>
+                                <label for="modelo-detalhado">Descrição:</label>
                                 <input type="text" name="modelo-detalhado" id="modelo-detalhado" placeholder="Ex.: Hilux" required>
                             </div>
 
                             <div>
-                                <label for="ano-detalhado">Ano:</label>
-                                <input type="number" min="1900" step="1" name="ano-detalhado" id="ano-detalhado" placeholder="Ex.: 2022" required>
+                                <label for="ano-detalhado">Observação (opcional):</label>
+                                <input type="text" name="ano-detalhado" id="ano-detalhado" placeholder="Ex.: 2022" required>
                             </div>
                             
                             <div>
-                                <label for="cor-detalhado">Cor:</label>
+                                <label for="cor-detalhado">Cidade:</label>
                                 <input type="text" name="cor-detalhado" id="cor-detalhado" placeholder="Ex.: Branco" required>
                             </div>
 
                             <div>
-                                <label for="quilometragem-detalhado">Quilometragem:</label>
-                                <input type="number" min="0" step="1" name="quilometragem-detalhado" id="quilometragem-detalhado" placeholder="Ex.: 50000" required>
+                                <label for="quilometragem-detalhado">Data:</label>
+                                <input type="date" name="quilometragem-detalhado" id="quilometragem-detalhado" placeholder="Ex.: 50000" required>
                             </div>
 
                             <div>
-                                <label for="valor-fipe-detalhado">Valor Fipe (em R$):</label>
-                                <input type="number" min="1000.00" step="1" name="valor-fipe-detalhado" id="valor-fipe-detalhado" placeholder="Ex.: 120000" required>
+                                <label for="valor-fipe-detalhado">Hora:</label>
+                                <input type="time" name="valor-fipe-detalhado" id="valor-fipe-detalhado" placeholder="Ex.: 120000" required>
                             </div>
     
                             <div>
@@ -185,33 +185,29 @@
                     <p><em>Os detalhes do seu carro aparecerão aqui...</em></p>
                 </div>
 
-                <div id="div-detalhes" class="d-none div-detalhes">
-                    <dl class="detalhes" id="dl-detalhes">
-                        <dt class="" id="dt-modelo">Modelo</dt>
-                        <dd class="" id="dd-modelo"></dd>
-    
-                        <dt class="" id="dt-marca">Marca</dt>
-                        <dd class="" id="dd-marca"></dd>
-    
-                        <dt class="" id="dt-ano">Ano</dt>
-                        <dd class="" id="dd-ano"></dd>
-    
-                        <dt class="" id="dt-cor">Cor</dt>
-                        <dd class="" id="dd-cor"></dd>
-    
-                        <dt class="" id="dt-quilometragem">Quilometragem</dt>
-                        <dd class="" id="dd-quilometragem"></dd>
-    
-                        <dt class="" id="dt-valor-fipe">Valor Fipe</dt>
-                        <dd class="" id="dd-valor-fipe"></dd>
-
-                        <dt class="" id="dt-anos-utilizacao">Anos de Utilização</dt>
-                        <dd class="" id="dd-anos-utilizacao"></dd>
-
-                        <dt class="" id="dt-valor-mercado">Valor de Mercado</dt>
-                        <dd class="" id="dd-valor-mercado"></dd>
-                    </dl>
-                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Descrição</th>
+                            <th>Endereço</th>
+                            <th>Cidade</th>
+                            <th>Data</th>
+                            <th>Hora</th>
+                            <th>Atrasado</th>
+                            <th>Concluído</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
             </details>
 
             <div class="voltar">

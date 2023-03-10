@@ -104,4 +104,13 @@ class ToDoList {
 let aluno = new Aluno("Diogo", "diogo.scarmagnani@fatec.sp.gov.br", "1990-04-14", "Análise e Desenvolvimento de Sistemas", "15701632598");
 console.log(aluno.curso);
 
-document.addEventListener("DOMContentLoaded", () => location.href = "../index.html");
+function rodarQuandoCarregar() {
+    const urlAtual = new URL(location.href);
+    
+    if (urlAtual.searchParams.get("rodar"))
+        return;
+
+    location.href = "../index.html";
+}
+
+document.addEventListener("DOMContentLoaded", rodarQuandoCarregar);
