@@ -12,27 +12,22 @@
 </head>
 <body>
     <!-- 
-        1. Implemente um script com um array cujos valores sejam adicionados dinamicamente pelo usuário utilizando-se formulário. A cada nova inserção exiba todos os dados cadastrados em ordem alfabética em uma lista ordenada do html.
+        1. Formulário de cadastro.
 
-        2. Implemente um formulario HTML para input das características de um carro:
-            modelo, marca, ano, cor, kilometragem, valor_fipe
-        Implemente um script que armazene as características preenchidas no formulário em um objeto e que contenha, além das propriedades acima, dois métodos:
-            anosUtilizacao() –deve retornar quantos anos de utilização o veículo possui;
-            valorMercado() –deve retornar o valor de mercado considerando a seguinte regra:
-                carros que rodam até 30.000 km/ano –110% do valor_fipe
-                carros que rodam entre 30.000 e 50.000 km/ano –100% do valor_fipe
-                carros que rodam mais que 50.000 km/ano –90% do valor_fipe
-        Preenchidos os campos os métodos criados devem ser utilizados para exibir quantos anos o veículo tem de utilização juntamente com seu valor de mercado.
+        2. Implemente o TODO listno qual o usuário possa:
+            Incluir itens;
+            Excluir itens;
+            Reordenar itens.
     -->
 
     <div class="container">
         <div class="principal">
-            <div id="texto-resumo">
+            <div id="texto-resumo" class="texto-resumo">
                 <p>Clique em um dos itens abaixo, conforme segue:</p>
-                <ul>
-                    <li>1. Exercício de implementar valores em um array.</li>
-                    <li>2. Exercício de inserir dados de carro em uma classe.</li>
-                </ul>
+                <ol>
+                    <li>Formulário de cadastro.</li>
+                    <li>ToDo List.</li>
+                </ol>
             </div>
             <details id="exercicio-1" class="my-1 top-of-list">
                 <summary>Exercício 1</summary>
@@ -128,36 +123,36 @@
             <details id="exercicio-2" class="my-1 top-of-list" open>
                 <summary>Exercício 2</summary>
                 <div>
-                    <p>Escreva o nome de um carro, selecione a modelo e clique em <strong>Adicionar</strong>:</p>
+                    <p>Escreva um novo compromisso e clique em <strong>Adicionar</strong>:</p>
     
                     <form action="" method="post" id="form-carro-detalhado">
                         <div class="pre-form-carro">
                             <div>
-                                <label for="modelo-detalhado">Descrição:</label>
-                                <input type="text" name="modelo-detalhado" id="modelo-detalhado" placeholder="Ex.: Hilux" required>
+                                <label for="descricao-detalhado">Descrição:</label>
+                                <input type="text" name="descricao-detalhado" id="descricao-detalhado" placeholder="Ex.: Prova de matemática" required>
                             </div>
 
                             <div>
-                                <label for="ano-detalhado">Observação (opcional):</label>
-                                <input type="text" name="ano-detalhado" id="ano-detalhado" placeholder="Ex.: 2022" required>
+                                <label for="obs-detalhado">Observação (opcional):</label>
+                                <input type="number" name="obs-detalhado" id="obs-detalhado" placeholder="Ex.: Estudar: matrizes, teoria dos conjuntos, determinantes...">
                             </div>
                             
                             <div>
-                                <label for="cor-detalhado">Cidade:</label>
-                                <input type="text" name="cor-detalhado" id="cor-detalhado" placeholder="Ex.: Branco" required>
+                                <label for="cidade-detalhado">Cidade:</label>
+                                <input type="text" name="cidade-detalhado" id="cidade-detalhado" placeholder="Ex.: Branco" required>
                             </div>
 
                             <div>
-                                <label for="quilometragem-detalhado">Data:</label>
-                                <input type="date" name="quilometragem-detalhado" id="quilometragem-detalhado" placeholder="Ex.: 50000" required>
+                                <label for="data-detalhado">Data:</label>
+                                <input type="date" name="data-detalhado" id="data-detalhado" placeholder="Ex.: 50000" required>
                             </div>
 
                             <div>
-                                <label for="valor-fipe-detalhado">Hora:</label>
-                                <input type="time" name="valor-fipe-detalhado" id="valor-fipe-detalhado" placeholder="Ex.: 120000" required>
+                                <label for="hora-detalhado">Hora:</label>
+                                <input type="time" name="hora-detalhado" id="hora-detalhado" placeholder="Ex.: 120000" required>
                             </div>
     
-                            <div>
+                            <!-- <div>
                                 <label for="marca-detalhado">Marca:</label>
                                 <select name="marca-detalhado" id="marca-detalhado" required>
                                     <option value="" class="d-none">-- Informe --</option>
@@ -171,7 +166,7 @@
                                     <option value="chevrolet">Chevrolet</option>
                                     <option value="outros">Outro</option>
                                 </select>
-                            </div>
+                            </div> -->
     
                             <div>
                                 <button type="reset" id="button-limpar" class="maozinha">Limpar tudo</button>
@@ -182,10 +177,10 @@
                 </div>
     
                 <div id="div-sem-detalhes">
-                    <p><em>Os detalhes do seu carro aparecerão aqui...</em></p>
+                    <p><em>Seus compromissos aparecerão aqui...</em></p>
                 </div>
 
-                <table>
+                <table id="tabela-compromissos" class="tabela-compromissos">
                     <thead>
                         <tr>
                             <th>Descrição</th>

@@ -37,6 +37,15 @@
     margin-right: 10px;
 }
 
+div.texto-resumo {
+    text-align: center;
+}
+
+div.texto-resumo > ol {
+    list-style-position: inside;
+    padding: 0;
+}
+
 .p-principal {
     font-size: x-large;
 }
@@ -115,7 +124,8 @@ details.top-of-list {
 }
 
 details.top-of-list > summary {
-    margin-left: -2em;
+    /* margin-left: -2em; */
+    text-align: center;
 }
 
 details[open] > summary.list-items {

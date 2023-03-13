@@ -70,26 +70,26 @@ class Professor extends Pessoa {
     set lattes(value) { this.#lattes = value; }
 }
 
-class ToDoList {
+class Item {
     #descricao;
-    #endereco;
+    #observacao;
     #cidade;
     #dataHora;
-    #ativo;
+    #estaAtivo;
 
-    constructor(descricao, endereco, cidade, dataHora, ativo = false) {
+    constructor(descricao, observacao, cidade, dataHora, estaAtivo = false) {
         this.#descricao = descricao;
-        this.#endereco = endereco;
+        this.#observacao = observacao;
         this.#cidade = cidade;
         this.#dataHora = new Date(dataHora);
-        this.#ativo = ativo;
+        this.#estaAtivo = estaAtivo;
     }
 
     get descricao() { return this.#descricao; }
     set descricao(value) { this.#descricao = value; }
 
-    get endereco() { return this.#endereco; }
-    set endereco(value) { this.#endereco = value; }
+    get observacao() { return this.#observacao; }
+    set observacao(value) { this.#observacao = value; }
 
     get cidade() { return this.#cidade; }
     set cidade(value) { this.#cidade = value; }
@@ -97,12 +97,66 @@ class ToDoList {
     get dataHora() { return this.#dataHora; }
     set dataHora(value) { this.#dataHora = new Date(value); }
 
-    get ativo() { return this.#ativo; }
-    set ativo(value) { this.#ativo = value; }
+    get estaAtivo() { return this.#estaAtivo; }
+    set estaAtivo(value) { this.#estaAtivo = value; }
+}
+
+class ToDoList {
+    #items = [];
+
+    constructor(items) {
+        this.#items = items;
+    }
+}
+
+function initializeToDoList() {
+    let serpentsToPush = [
+        [
+            "Prova de Matemática",
+            "Estudar: matrizes; determinantes; sistemas lineares",
+            "Presidente Prudente",
+            "2023-04-13T19:00"
+        ],
+        [
+            "Prova de PHP",
+            "Estudar: conceitos de POO",
+            "Presidente Prudente",
+            "2023-04-14T21:00"
+        ],
+        [
+            "Prova de Redes",
+            "Estudar: TIC domicílios",
+            "Presidente Prudente",
+            "2023-04-12T19:00"
+        ],
+        [
+            "Prova de Lab. Eng. Software",
+            "Estudar: sintaxe e tipos; laços e iterações; controle de fluxo e manipulação de erro; expressões e operadores; funções; coleções indexadas; objetos",
+            "Presidente Prudente",
+            "2023-04-11T19:00"
+        ]
+    ];
+
+    let airplane = new Airplane();
+    serpentsToPush.forEach((serpent) => {
+        const lenSerp = airplane.getAllSerpents().length > 0 ? airplane.getAllSerpents().at(-1).id : 0;
+        airplane.setNewSerpent(new Serpent(serpent[0], serpent[1], serpent[2], serpent[3], lenSerp));
+    });
+    
+    airplane.getAllSerpents().forEach((serpent) => {
+        console.log("Id: " + serpent.id + "\n" +
+        "Nome popular: " + serpent.popularName + "\n" +
+        "Nome científico: " + serpent.cientificName + "\n" +
+        "Interesse médico: " + (serpent.medicalInterest === true ? "sim" : "não") + "\n" +
+        "Família: " + serpent.familyType + "\n");
+    });
+
+    firstTimeOnThePlane = true;
 }
 
 let aluno = new Aluno("Diogo", "diogo.scarmagnani@fatec.sp.gov.br", "1990-04-14", "Análise e Desenvolvimento de Sistemas", "15701632598");
 console.log(aluno.curso);
+console.log(aluno);
 
 function rodarQuandoCarregar() {
     const urlAtual = new URL(location.href);
