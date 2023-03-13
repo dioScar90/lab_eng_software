@@ -167,4 +167,11 @@ function rodarQuandoCarregar() {
     location.href = "../index.html";
 }
 
+function esquece() {
+    console.log("Esqueeeece...");
+}
+
+document.querySelector("#form-todo-list").addEventListener("submit", esquece);
+document.querySelector("#form-todo-list").addEventListener("reset", esquece);
+document.querySelector("#btn-voltar").addEventListener("click", () => location = "../index.html");
 document.addEventListener("DOMContentLoaded", rodarQuandoCarregar);
