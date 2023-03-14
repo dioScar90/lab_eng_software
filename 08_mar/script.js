@@ -1,4 +1,5 @@
 var firstTimeOnToDoList = false;
+var listaCompromissos = false;
 String.prototype.ucFirst = function(peloMenosPrimeiraPalavra = false) {
     if (peloMenosPrimeiraPalavra === true)
         return this.trim().charAt(0).toUpperCase() + this.trim().slice(1);
@@ -20,7 +21,6 @@ class Utils {
         
         let newObj = {};
         for (const [name, val] of dados) {
-            // newObj[name.replace(/-/g, '_')] = val;
             newObj[name] = val;
         }
     
@@ -45,10 +45,6 @@ class Utils {
         let cellIndex = thElement.cellIndex;
         let colNum = cellIndex + 1;
         let asc = allTh[cellIndex].toggleAttribute("data-order-by");
-
-        // let allThCleaned = this.#cleanAllThAttributes(allTh, cellIndex, 1);
-        // if (allThCleaned !== true)
-        //     return;
         
         const tableTbody = theadElement.nextElementSibling;
         
@@ -78,66 +74,93 @@ class Utils {
         let observacao = compObj.observacao.ucFirst(true);
         let data = compObj.dataHora.toLocaleDateString("pt-BR");
         let hora = compObj.dataHora.toLocaleTimeString("pt-BR");
-        let atrasado = compObj.dataHora > new Date() ? "Atrasado" : "Não";
-        let ativo = compObj.ativo === true ? "Ativo" : "Não";
+        let acoes = "<span>&#9650;</span> <span>&#9660;</span>";
+        let status = compObj.concluido === true ? "Concluído" : (compObj.dataHora > new Date() ? "Em aberto" : "Atrasado");
     
         let tbodyTr =   `<tr>`;
         tbodyTr +=          `<td>${descricao}</td>`;
         tbodyTr +=          `<td>${observacao}</td>`;
         tbodyTr +=          `<td>${data}</td>`;
         tbodyTr +=          `<td>${hora}</td>`;
-        tbodyTr +=          `<td>${atrasado}</td>`;
-        tbodyTr +=          `<td>${ativo}</td>`;
+        tbodyTr +=          `<td>${acoes}</td>`;
+        tbodyTr +=          `<td>${status}</td>`;
         tbodyTr +=      `</tr>`;
     
         table.lastElementChild.insertAdjacentHTML("beforeend", tbodyTr);
     }
+
+    static mountTableBySessionStorage(listaCompromissos, firstMount = false) {
+        if (firstMount === true) {
+            let sessionKeys = Object.keys(sessionStorage);
+            for (let i = 0; i < sessionKeys.length; i++) {
+                let compObj = JSON.parse(sessionStorage.getItem(sessionKeys[i]));
+                let comp = new Compromisso(compObj.descricao, compObj.observacao, compObj.dataHora, compObj.concluido);
+                listaCompromissos.addCompromisso(comp);
+            }
+        }
+
+        document.querySelector("#tabela-compromissos > tbody").innerHTML = '';
+        listaCompromissos.items.forEach( comp => this.addLine(comp.getCompromissoParaJson()) );
+    }
     
-    static initializeToDoList() {
+    static initializeToDoList(listaCompromissos) {
         let novosCompromissos = [
             [
                 "Prova de Matemática",
                 "Estudar: matrizes; determinantes; sistemas lineares",
-                "Presidente Prudente",
-                "2023-04-13T19:00"
+                "2023-04-13T19:00",
+                false
             ],
+            [
+                "Prova do TOEIC",
+                "Estudar: Inglês a rodo",
+                "2022-12-06T19:00",
+                true
+            ],
+            [
+                "Volta às aulas",
+                '',
+                "2023-02-08T19:00",
+                false
+            ],,
             [
                 "Prova de PHP",
                 "Estudar: conceitos de POO",
-                "Presidente Prudente",
-                "2023-04-14T21:00"
+                "2023-04-14T21:00",
+                false
             ],
             [
                 "Prova de Redes",
                 "Estudar: TIC domicílios",
-                "Presidente Prudente",
-                "2023-04-12T19:00"
+                "2023-04-12T19:00",
+                false
             ],
             [
                 "Prova de Lab. Eng. Software",
                 "Estudar: sintaxe e tipos; laços e iterações; controle de fluxo e manipulação de erro; expressões e operadores; funções; coleções indexadas; objetos",
-                "Presidente Prudente",
-                "2023-04-11T19:00"
+                "2023-04-11T19:00",
+                false
             ],
             [
                 "Prova de PHP",
                 "Estudar: sintaxe e tipos; laços e iterações; controle de fluxo e manipulação de erro; expressões e operadores; funções; coleções indexadas; objetos",
-                "Presidente Prudente",
-                "2023-04-12T06:00"
+                "2023-04-12T06:00",
+                false
             ]
         ];
     
-        let listaCompromissos = new ToDoList();
+        // let listaCompromissos = new ToDoList();
         novosCompromissos.forEach(comp => {
-            listaCompromissos.addCompromisso(new Compromisso(comp[0], comp[1], comp[2], comp[3], true));
+            listaCompromissos.addCompromisso(new Compromisso(comp[0], comp[1], comp[2], comp[3], comp[4]));
         });
     
         sessionStorage.clear();
         let compromissosNoObj = listaCompromissos.items;
         compromissosNoObj.forEach((comp, i) => {
             let id = "comp_" + i+1;
-            let data = JSON.stringify(comp);
-            Utils.addLine(comp);
+            let compObj = comp.getCompromissoParaJson();
+            let data = JSON.stringify(compObj);
+            Utils.addLine(compObj);
             sessionStorage.setItem(id, data);
         });
     
@@ -208,16 +231,14 @@ class Professor extends Pessoa {
 class Compromisso {
     #descricao;
     #observacao;
-    #cidade;
     #dataHora;
-    #estaAtivo;
+    #concluido;
 
-    constructor(descricao, observacao, cidade, dataHora, estaAtivo = false) {
-        this.#descricao = descricao;
-        this.#observacao = observacao;
-        this.#cidade = cidade;
+    constructor(descricao, observacao, dataHora, concluido = false) {
+        this.#descricao = descricao.trim();
+        this.#observacao = observacao.trim();
         this.#dataHora = new Date(dataHora);
-        this.#estaAtivo = estaAtivo;
+        this.#concluido = concluido;
     }
 
     get descricao() { return this.#descricao; }
@@ -225,15 +246,23 @@ class Compromisso {
 
     get observacao() { return this.#observacao; }
     set observacao(value) { this.#observacao = value; }
-
-    get cidade() { return this.#cidade; }
-    set cidade(value) { this.#cidade = value; }
-
+    
     get dataHora() { return this.#dataHora; }
     set dataHora(value) { this.#dataHora = new Date(value); }
 
-    get estaAtivo() { return this.#estaAtivo; }
-    set estaAtivo(value) { this.#estaAtivo = value; }
+    get concluido() { return this.#concluido; }
+    set concluido(value) { this.#concluido = value; }
+
+    getCompromissoParaJson() {
+        let obj = {};
+
+        obj.descricao = this.#descricao;
+        obj.observacao = this.#observacao;
+        obj.dataHora = this.#dataHora;
+        obj.concluido = this.#concluido;
+
+        return obj;
+    }
 }
 
 class ToDoList {
@@ -265,17 +294,28 @@ function novoCompromisso(e) {
     let dados = Utils.getValuesDoForm(e.target);
     let descricao = dados.descricao;
     let observacao = dados.observacao;
-    let cidade = dados.cidade;
     let dataHora = dados.data + 'T' + dados.hora;
-    let novoComp = new Compromisso(descricao, observacao, cidade, dataHora, true);
-    console.log("Esqueeeece...");
+    let novoComp = new Compromisso(descricao, observacao, dataHora);
+
+    let id = "comp_" + (sessionStorage.length + 1);
+    let compStr = JSON.stringify(novoComp.getCompromissoParaJson());
+    listaCompromissos.addCompromisso(novoComp);
+    sessionStorage.setItem(id, compStr);
+    
+    Utils.mountTableBySessionStorage(listaCompromissos);
 }
 
 function rodarQuandoCarregar() {
+    listaCompromissos = new ToDoList();
     const urlAtual = new URL(location.href);
     
     if (urlAtual.searchParams.get("rodar")) {
-        Utils.initializeToDoList();
+        if (sessionStorage.length == 0) {
+            Utils.initializeToDoList(listaCompromissos);
+            return;
+        }
+
+        Utils.mountTableBySessionStorage(listaCompromissos, true);
         return;
     }
 
