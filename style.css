@@ -5,7 +5,7 @@
 
 .principal {
     width: auto;
-    max-width: 800px;
+    max-width: min(90vw, 800px);
 }
 
 .principal > div {
