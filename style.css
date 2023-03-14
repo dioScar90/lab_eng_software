@@ -157,3 +157,17 @@ details > summary.list-items {
     text-align: center;
     vertical-align: middle;
 }
+
+a:has(> span.click-up), a:has(> span.click-down) {
+    cursor: pointer;
+}
+
+.tabela-compromissos > tbody > tr:nth-child(1) > td:nth-child(5) > span.click-up,
+.tabela-compromissos > tbody > tr:nth-last-child() > td:nth-child(5) > span.click-down {
+    pointer-events: none;
+}
+
+.tabela-compromissos > tbody > tr:nth-child(1) > td:nth-child(5) > span.click-up > a,
+.tabela-compromissos > tbody > tr:nth-last-child() > td:nth-child(5) > span.click-down > a {
+    cursor: not-allowed;
+}

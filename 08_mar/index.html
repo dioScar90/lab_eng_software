@@ -120,7 +120,7 @@
                 </div>
             </details>
             
-            <details id="exercicio-2" class="my-1 top-of-list" open>
+            <details id="exercicio-2" class="my-1 top-of-list">
                 <summary>Exercício 2</summary>
                 <div>
                     <p>Escreva um novo compromisso e clique em <strong>Adicionar</strong>:</p>
@@ -146,32 +146,16 @@
                                 <label for="hora">Hora:</label>
                                 <input type="time" name="hora" id="hora" placeholder="Ex.: 120000" required>
                             </div>
-    
-                            <!-- <div>
-                                <label for="marca">Marca:</label>
-                                <select name="marca" id="marca" required>
-                                    <option value="" class="d-none">-- Informe --</option>
-                                    <option value="toyota">Toyota</option>
-                                    <option value="volkswagen">Volkswagen</option>
-                                    <option value="honda">Honda</option>
-                                    <option value="hyundai">Hyundai</option>
-                                    <option value="ford">Ford</option>
-                                    <option value="porsche">Porsche</option>
-                                    <option value="ferrari">Ferrari</option>
-                                    <option value="chevrolet">Chevrolet</option>
-                                    <option value="outros">Outro</option>
-                                </select>
-                            </div> -->
-    
+                            
                             <div>
-                                <button type="reset" id="button-limpar" class="maozinha">Limpar tudo</button>
-                                <button class="maozinha">Adicionar</button>
+                                <button type="reset" id="button-limpar" class="maozinha">Limpar todos os compromissos</button>
+                                <button class="maozinha">Adicionar compromisso</button>
                             </div>
                         </div>
                     </form>
                 </div>
     
-                <div id="div-sem-detalhes">
+                <div id="div-sem-detalhes" class="d-none">
                     <p><em>Seus compromissos aparecerão aqui...</em></p>
                 </div>
 

@@ -97,7 +97,7 @@ function sortOrderedList(olElement) {
     allLi.forEach(li => olElement.append(li));
 }
 
-function adicionodelorroSimples(values) {
+function adicionarCarroSimples(values) {
     let modelo = values.modelo_simples;
     let marca = values.marca_simples;
 
@@ -145,7 +145,7 @@ function aparecerDetalhesCarro(carro) {
     divDetalhes.classList.remove("d-none");
 }
 
-function adicionodelorroDetalhado(values) {
+function adicionarCarroDetalhado(values) {
     let modelo = values.modelo_detalhado;
     let marca = values.marca_detalhado;
     let ano = values.ano_detalhado;
@@ -158,16 +158,16 @@ function adicionodelorroDetalhado(values) {
     aparecerDetalhesCarro(carro);
 }
 
-function adicionodelorro(e) {
+function adicionarCarro(e) {
     e.preventDefault();
     let values = getValuesDoForm(e.target);
 
     if (e.target.id == "form-carro-simples") {
-        adicionodelorroSimples(values);
+        adicionarCarroSimples(values);
         return;
     }
 
-    adicionodelorroDetalhado(values);
+    adicionarCarroDetalhado(values);
 }
 
 function closeAllDetails() {
@@ -178,7 +178,7 @@ function closeAllDetails() {
     });
 }
 
-function limpodelorrosSimples() {
+function limparFormSimples() {
     const divCarros = document.querySelector("#div-carros-simples");
     const allDetails = [...divCarros.querySelectorAll("details")];
     
@@ -191,7 +191,7 @@ function limpodelorrosSimples() {
     divCarros.previousElementSibling.classList.remove("d-none");
 }
 
-function limpodelorrosDetalhado() {
+function limparFormDetalhado() {
     const divDetalhes = document.querySelector("#div-detalhes");
     const allDd = [...divDetalhes.firstElementChild.querySelectorAll("dd")];
     
@@ -200,13 +200,13 @@ function limpodelorrosDetalhado() {
     divDetalhes.previousElementSibling.classList.remove("d-none");
 }
 
-function limpodelorros(e) {
+function limparForm(e) {
     if (e.target.id == "form-carro-simples") {
-        limpodelorrosSimples();
+        limparFormSimples();
         return;
     }
 
-    limpodelorrosDetalhado();
+    limparFormDetalhado();
 }
 
 function mudarCorTextoResumo(fechouTodos = false) {
@@ -238,10 +238,10 @@ async function rodarQuandoCarregar() {
     console.log("Entrou.");
 }
 
-document.querySelector("#form-carro-simples").addEventListener("submit", adicionodelorro);
-document.querySelector("#form-carro-simples").addEventListener("reset", limpodelorros);
-document.querySelector("#form-carro-detalhado").addEventListener("submit", adicionodelorro);
-document.querySelector("#form-carro-detalhado").addEventListener("reset", limpodelorros);
+document.querySelector("#form-carro-simples").addEventListener("submit", adicionarCarro);
+document.querySelector("#form-carro-simples").addEventListener("reset", limparForm);
+document.querySelector("#form-carro-detalhado").addEventListener("submit", adicionarCarro);
+document.querySelector("#form-carro-detalhado").addEventListener("reset", limparForm);
 document.querySelectorAll("div.principal > details > summary").forEach( item => item.addEventListener("click", clicouDetailPrincipal) );
 document.querySelector("#btn-voltar").addEventListener("click", () => location = "../index.html");
 document.addEventListener("DOMContentLoaded", rodarQuandoCarregar);

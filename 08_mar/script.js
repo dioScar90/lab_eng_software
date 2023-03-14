@@ -74,7 +74,7 @@ class Utils {
         let observacao = compObj.observacao.ucFirst(true);
         let data = compObj.dataHora.toLocaleDateString("pt-BR");
         let hora = compObj.dataHora.toLocaleTimeString("pt-BR");
-        let acoes = "<span>&#9650;</span> <span>&#9660;</span>";
+        let acoes = "<span class='click-up'><a>&#9650;</a></span> <span class='click-down'><a>&#9660;</a></span>";
         let status = compObj.concluido === true ? "Concluído" : (compObj.dataHora > new Date() ? "Em aberto" : "Atrasado");
     
         let tbodyTr =   `<tr>`;
@@ -87,6 +87,7 @@ class Utils {
         tbodyTr +=      `</tr>`;
     
         table.lastElementChild.insertAdjacentHTML("beforeend", tbodyTr);
+        limparFormToDoList(true);
     }
 
     static mountTableBySessionStorage(listaCompromissos, firstMount = false) {
@@ -280,13 +281,12 @@ class ToDoList {
         this.#items.push(novoCompromisso);
         this.#sortItems();
     }
+
+    deleteAll = () => {
+        this.#items = [];
+        sessionStorage.clear();
+    }
 }
-
-
-
-let aluno = new Aluno("Diogo", "diogo.scarmagnani@fatec.sp.gov.br", "1990-04-14", "Análise e Desenvolvimento de Sistemas", "15701632598");
-console.log(aluno.curso);
-console.log(aluno);
 
 function novoCompromisso(e) {
     e.preventDefault();
@@ -303,6 +303,72 @@ function novoCompromisso(e) {
     sessionStorage.setItem(id, compStr);
     
     Utils.mountTableBySessionStorage(listaCompromissos);
+}
+
+function limparFormProfessorAluno() {
+    const divCarros = document.querySelector("#div-carros-simples");
+    const allDetails = [...divCarros.querySelectorAll("details")];
+    
+    allDetails.forEach((detail) => {
+        detail.classList.add("d-none");
+        detail.querySelector("ol").innerHTML = '';
+    });
+
+    divCarros.classList.add("d-none");
+    divCarros.previousElementSibling.classList.remove("d-none");
+}
+
+function limparFormToDoList(limparSomenteForm = false) {
+    const form = document.querySelector("form#form-todo-list")
+    const allInput = [...form.querySelectorAll("input")];
+    allInput.forEach( input => input.value = '' );
+
+    if (limparSomenteForm === true)
+        return;
+
+    const divSemDetalhes = form.closest("details").querySelector("#div-sem-detalhes");
+    const table = divSemDetalhes.nextElementSibling;
+    
+    table.lastElementChild.innerHTML = '';
+
+    listaCompromissos.deleteAll();
+
+    divSemDetalhes.classList.remove("d-none");
+    table.classList.add("d-none");
+}
+
+function limparForm(e) {
+    if (e.target.id == "form-professor-aluno") {
+        limparFormProfessorAluno();
+        return;
+    }
+
+    limparFormToDoList();
+}
+
+function mudarCorTextoResumo(fechouTodos = false) {
+    if (fechouTodos === true) {
+        document.querySelector("div#texto-resumo").classList.remove("color-grey");
+        return;
+    }
+
+    document.querySelector("div#texto-resumo").classList.add("color-grey");
+}
+
+function fecharOutroDetail(idAberto) {
+    let strSelector = idAberto == "exercicio-1" ? "details#exercicio-2" : "details#exercicio-1";
+    document.querySelector(strSelector).open = false;
+}
+
+function clicouDetailPrincipal(e) {
+    if (e.target.closest("details").open === true) {
+        mudarCorTextoResumo(true);
+        return;
+    }
+
+    let id = e.target.closest("details").id;
+    fecharOutroDetail(id);
+    mudarCorTextoResumo();
 }
 
 function rodarQuandoCarregar() {
@@ -323,6 +389,7 @@ function rodarQuandoCarregar() {
 }
 
 document.querySelector("#form-todo-list").addEventListener("submit", novoCompromisso);
-document.querySelector("#form-todo-list").addEventListener("reset", () => "Esqueeeece...");
+document.querySelector("#form-todo-list").addEventListener("reset", limparForm);
+document.querySelectorAll("div.principal > details > summary").forEach( item => item.addEventListener("click", clicouDetailPrincipal) );
 document.querySelector("#btn-voltar").addEventListener("click", () => location = "../index.html");
 document.addEventListener("DOMContentLoaded", rodarQuandoCarregar);
