@@ -67,17 +67,75 @@ class Utils {
         allTh[cellIndex].innerHTML += iContent;
     }
 
+    static deleteCompromisso(tr) {
+        const tbody = tr.closest("tbody");
+        let id = tr.id;
+        let compObj = listaCompromissos.items.find(comp => comp.id == id);
+        compObj.deleteCompromisso();
+        
+        tr.remove();
+        sessionStorage.removeItem(id);
+
+        this.getButtonsEvents();
+        this.disableBtnUpDown();
+
+        if (tbody.children.length == 0) {
+            tbody.closest("table").classList.add("d-none");
+            tbody.closest("table").previousElementSibling.classList.remove("d-none");
+        }
+    }
+
+    static #moverDefinitivamente(btnUp, tr) {
+        const trClone = tr.cloneNode(true);
+
+        if (btnUp === true) {
+            const trBefore = tr.previousElementSibling;
+            trBefore.before(trClone);
+            tr.remove();
+            return;
+        }
+    
+        const trAfter = tr.nextElementSibling;
+        trAfter.after(trClone);
+        tr.remove();
+    }
+
+    static moveButtonUpDown(btn) {
+        let btnUp = btn.classList.contains("btn-up");
+        const tr = btn.closest("tr");
+
+        this.#moverDefinitivamente(btnUp, tr);
+        
+        this.getButtonsEvents();
+        this.disableBtnUpDown();
+    }
+
+    static #prepareButton = (e) => {
+        if (e.target.classList.contains("rm-trash")) {
+            this.deleteCompromisso(e.target.closest("tr"));
+            return;
+        }
+
+        this.moveButtonUpDown(e.target);
+    }
+
+    static getButtonsEvents() {
+        document.querySelectorAll(".rm-trash, .btn-up, .btn-down").forEach( item => item.addEventListener("click", this.#prepareButton) );
+    }
+
     static addLine(compObj) {
         const table = document.querySelector("#tabela-compromissos");
         
         let descricao = compObj.descricao.ucFirst(true);
-        let observacao = compObj.observacao.ucFirst(true);
+        let observacao = compObj.observacao == '' ? "---" : compObj.observacao.ucFirst(true);
         let data = compObj.dataHora.toLocaleDateString("pt-BR");
         let hora = compObj.dataHora.toLocaleTimeString("pt-BR");
-        let acoes = "<span class='click-up'><a>&#9650;</a></span> <span class='click-down'><a>&#9660;</a></span>";
+        let acoes = "<button type='button' class='rm-trash' title='Excluir compromisso'>&#x1F5D1;</button>";
+        acoes += "<button type='button' class='btn-up'>&#9650;</button>";
+        acoes += "<button type='button' class='btn-down'>&#9660;</button>";
         let status = compObj.concluido === true ? "Concluído" : (compObj.dataHora > new Date() ? "Em aberto" : "Atrasado");
     
-        let tbodyTr =   `<tr>`;
+        let tbodyTr =   `<tr id="${compObj.id}">`;
         tbodyTr +=          `<td>${descricao}</td>`;
         tbodyTr +=          `<td>${observacao}</td>`;
         tbodyTr +=          `<td>${data}</td>`;
@@ -87,7 +145,21 @@ class Utils {
         tbodyTr +=      `</tr>`;
     
         table.lastElementChild.insertAdjacentHTML("beforeend", tbodyTr);
+
+        if (table.classList.contains("d-none")) {
+            table.classList.remove("d-none");
+            table.previousElementSibling.classList.add("d-none");
+        }
+        
         limparFormToDoList(true);
+    }
+
+    static disableBtnUpDown() {
+        [...document.querySelectorAll(".btn-up, .btn-down")].forEach((btn, i, allBtn) => {
+            btn.disabled = btn == allBtn.at(0) || btn == allBtn.at(-1) ? true : false;
+        })
+
+        this.getButtonsEvents();
     }
 
     static mountTableBySessionStorage(listaCompromissos, firstMount = false) {
@@ -95,13 +167,14 @@ class Utils {
             let sessionKeys = Object.keys(sessionStorage);
             for (let i = 0; i < sessionKeys.length; i++) {
                 let compObj = JSON.parse(sessionStorage.getItem(sessionKeys[i]));
-                let comp = new Compromisso(compObj.descricao, compObj.observacao, compObj.dataHora, compObj.concluido);
+                let comp = new Compromisso("comp_" + (listaCompromissos.items.length + 1), compObj.descricao, compObj.observacao, compObj.dataHora, compObj.concluido);
                 listaCompromissos.addCompromisso(comp);
             }
         }
 
         document.querySelector("#tabela-compromissos > tbody").innerHTML = '';
         listaCompromissos.items.forEach( comp => this.addLine(comp.getCompromissoParaJson()) );
+        this.disableBtnUpDown();
     }
     
     static initializeToDoList(listaCompromissos) {
@@ -152,7 +225,7 @@ class Utils {
     
         // let listaCompromissos = new ToDoList();
         novosCompromissos.forEach(comp => {
-            listaCompromissos.addCompromisso(new Compromisso(comp[0], comp[1], comp[2], comp[3], comp[4]));
+            listaCompromissos.addCompromisso(new Compromisso("comp_" + (listaCompromissos.items.length + 1), comp[0], comp[1], comp[2], comp[3], comp[4]));
         });
     
         sessionStorage.clear();
@@ -161,9 +234,10 @@ class Utils {
             let id = "comp_" + i+1;
             let compObj = comp.getCompromissoParaJson();
             let data = JSON.stringify(compObj);
-            Utils.addLine(compObj);
+            this.addLine(compObj, id);
             sessionStorage.setItem(id, data);
         });
+        this.disableBtnUpDown();
     
         firstTimeOnToDoList = true;
     }
@@ -230,17 +304,23 @@ class Professor extends Pessoa {
 }
 
 class Compromisso {
+    #id;
     #descricao;
     #observacao;
     #dataHora;
     #concluido;
+    #ativo;
 
-    constructor(descricao, observacao, dataHora, concluido = false) {
+    constructor(id, descricao, observacao, dataHora, concluido = false) {
+        this.#id = id;
         this.#descricao = descricao.trim();
         this.#observacao = observacao.trim();
         this.#dataHora = new Date(dataHora);
         this.#concluido = concluido;
+        this.#ativo = true;
     }
+
+    get id() { return this.#id; }
 
     get descricao() { return this.#descricao; }
     set descricao(value) { this.#descricao = value; }
@@ -257,6 +337,7 @@ class Compromisso {
     getCompromissoParaJson() {
         let obj = {};
 
+        obj.id = this.#id;
         obj.descricao = this.#descricao;
         obj.observacao = this.#observacao;
         obj.dataHora = this.#dataHora;
@@ -264,6 +345,8 @@ class Compromisso {
 
         return obj;
     }
+
+    deleteCompromisso = () => this.#ativo = false;
 }
 
 class ToDoList {
@@ -295,7 +378,7 @@ function novoCompromisso(e) {
     let descricao = dados.descricao;
     let observacao = dados.observacao;
     let dataHora = dados.data + 'T' + dados.hora;
-    let novoComp = new Compromisso(descricao, observacao, dataHora);
+    let novoComp = new Compromisso("comp_" + (listaCompromissos.items.length + 1), descricao, observacao, dataHora);
 
     let id = "comp_" + (sessionStorage.length + 1);
     let compStr = JSON.stringify(novoComp.getCompromissoParaJson());
@@ -371,7 +454,7 @@ function clicouDetailPrincipal(e) {
     mudarCorTextoResumo();
 }
 
-function rodarQuandoCarregar() {
+function iniciarCompromissos() {
     listaCompromissos = new ToDoList();
     const urlAtual = new URL(location.href);
     
@@ -380,12 +463,17 @@ function rodarQuandoCarregar() {
             Utils.initializeToDoList(listaCompromissos);
             return;
         }
-
+    
         Utils.mountTableBySessionStorage(listaCompromissos, true);
         return;
     }
-
+    
     location.href = "../index.html";
+}
+
+async function rodarQuandoCarregar() {
+    await iniciarCompromissos();
+    await Utils.getButtonsEvents();
 }
 
 document.querySelector("#form-todo-list").addEventListener("submit", novoCompromisso);

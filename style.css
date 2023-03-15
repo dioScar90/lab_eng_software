@@ -158,11 +158,23 @@ details > summary.list-items {
     vertical-align: middle;
 }
 
-a:has(> span.click-up), a:has(> span.click-down) {
+.rm-trash, .btn-up, .btn-down {
+    padding: 0;
+    margin: 1px;
     cursor: pointer;
 }
 
-.tabela-compromissos > tbody > tr:nth-child(1) > td:nth-child(5) > span.click-up,
+th:nth-child(5), td:nth-child(5) {
+    min-width: 100px;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+td > button:disabled {
+    cursor: not-allowed;
+}
+
+/* .tabela-compromissos > tbody > tr:nth-child(1) > td:nth-child(5) > span.click-up,
 .tabela-compromissos > tbody > tr:nth-last-child() > td:nth-child(5) > span.click-down {
     pointer-events: none;
 }
@@ -170,4 +182,4 @@ a:has(> span.click-up), a:has(> span.click-down) {
 .tabela-compromissos > tbody > tr:nth-child(1) > td:nth-child(5) > span.click-up > a,
 .tabela-compromissos > tbody > tr:nth-last-child() > td:nth-child(5) > span.click-down > a {
     cursor: not-allowed;
-}
+} */
