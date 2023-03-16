@@ -78,6 +78,11 @@ span.hoje, .agora {
     align-items: center;
 }
 
+.formulario-aluno-professor {
+    max-width: min(90vw, 800px);
+    display: inline;
+}
+
 .pre-form-carro {
     max-width: 700px;
     display: flex;
