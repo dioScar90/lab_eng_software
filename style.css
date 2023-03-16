@@ -179,12 +179,19 @@ td > button:disabled {
     cursor: not-allowed;
 }
 
-/* .tabela-compromissos > tbody > tr:nth-child(1) > td:nth-child(5) > span.click-up,
-.tabela-compromissos > tbody > tr:nth-last-child() > td:nth-child(5) > span.click-down {
-    pointer-events: none;
+div:has(#aluno-cadastro:checked) ~ .inputs-aluno,
+div:has(#professor-cadastro:checked) ~ .inputs-professor {
+    display: block !important;
 }
 
-.tabela-compromissos > tbody > tr:nth-child(1) > td:nth-child(5) > span.click-up > a,
-.tabela-compromissos > tbody > tr:nth-last-child() > td:nth-child(5) > span.click-down > a {
-    cursor: not-allowed;
+/* div:has(#aluno-cadastro:checked) ~ .inputs-aluno input,
+div:has(#professor-cadastro:checked) ~ .inputs-professor input {
+    pointer-events: none;
+} */
+
+/* #div-radio-aluno-professor */
+
+/* #div-radio-aluno-professor:has(:not(#aluno-cadastro:checked)) ~ .inputs-aluno input,
+#div-radio-aluno-professor:has(:not(#professor-cadastro:checked)) ~ .inputs-professor input {
+    pointer-events: none;
 } */

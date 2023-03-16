@@ -249,6 +249,9 @@ class Pessoa {
     #dataNascimento;
 
     constructor(nome, email, dataNascimento) {
+        if (this.constructor == Pessoa)
+            throw new Error("Classe 'Pessoa' não pode ser instanciada, apenas herdada.");
+        
         this.#nome = nome;
         this.#email = email;
         this.#dataNascimento = new Date(dataNascimento + "T00:00");
@@ -474,10 +477,16 @@ function iniciarCompromissos() {
 async function rodarQuandoCarregar() {
     await iniciarCompromissos();
     await Utils.getButtonsEvents();
+
+    // Printa um novo objeto de 'Aluno'.
+    console.log(new Aluno("Diogo", "diogo.scarmagnani@fatec.sp.gov.br", "1990-04-14", "Análise e Desenvolvimento de Sistemas", "1570482111046"));
+
+    // Printa o erro ao tentar instanciar 'Pessoa'.
+    console.log(new Pessoa("Diogo", "diogo.scarmagnani@fatec.sp.gov.br", "1990-04-14"));
 }
 
-document.querySelector("#form-todo-list").addEventListener("submit", novoCompromisso);
-document.querySelector("#form-todo-list").addEventListener("reset", limparForm);
+document.querySelector("#form-todo-list, #form-cadastro").addEventListener("submit", novoCompromisso);
+document.querySelector("#form-todo-list, #form-cadastro").addEventListener("reset", limparForm);
 document.querySelectorAll("div.principal > details > summary").forEach( item => item.addEventListener("click", clicouDetailPrincipal) );
 document.querySelector("#btn-voltar").addEventListener("click", () => location = "../index.html");
 document.addEventListener("DOMContentLoaded", rodarQuandoCarregar);
