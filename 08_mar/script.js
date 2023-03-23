@@ -172,7 +172,7 @@ class Utils {
             }
         }
 
-        document.querySelector("#tabela-compromissos > tbody").innerHTML = '';
+        document.querySelector("#tabela-compromissos > tbody").replaceChildren();
         listaCompromissos.items.forEach( comp => this.addLine(comp.getCompromissoParaJson()) );
         this.disableBtnUpDown();
     }
@@ -397,7 +397,7 @@ function limparFormProfessorAluno() {
     
     allDetails.forEach((detail) => {
         detail.classList.add("d-none");
-        detail.querySelector("ol").innerHTML = '';
+        detail.querySelector("ol").replaceChildren();
     });
 
     divCarros.classList.add("d-none");
@@ -415,7 +415,7 @@ function limparFormToDoList(limparSomenteForm = false) {
     const divSemDetalhes = form.closest("details").querySelector("#div-sem-detalhes");
     const table = divSemDetalhes.nextElementSibling;
     
-    table.lastElementChild.innerHTML = '';
+    table.lastElementChild.replaceChildren();
 
     listaCompromissos.deleteAll();
 

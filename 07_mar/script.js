@@ -184,7 +184,7 @@ function limparFormSimples() {
     
     allDetails.forEach((detail) => {
         detail.classList.add("d-none");
-        detail.querySelector("ol").innerHTML = '';
+        detail.querySelector("ol").replaceChildren();
     });
 
     divCarros.classList.add("d-none");
@@ -195,7 +195,7 @@ function limparFormDetalhado() {
     const divDetalhes = document.querySelector("#div-detalhes");
     const allDd = [...divDetalhes.firstElementChild.querySelectorAll("dd")];
     
-    allDd.forEach( (dd) => dd.innerHTML = '' );
+    allDd.forEach( (dd) => dd.replaceChildren() );
     divDetalhes.classList.add("d-none");
     divDetalhes.previousElementSibling.classList.remove("d-none");
 }
