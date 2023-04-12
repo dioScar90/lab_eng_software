@@ -374,6 +374,14 @@ class ToDoList {
     }
 }
 
+function novoProfessorAluno(e) {
+    e.preventDefault();
+
+    let dados = Utils.getValuesDoForm(e.target);
+
+    console.log(dados);
+}
+
 function novoCompromisso(e) {
     e.preventDefault();
 
@@ -389,6 +397,15 @@ function novoCompromisso(e) {
     sessionStorage.setItem(id, compStr);
     
     Utils.mountTableBySessionStorage(listaCompromissos);
+}
+
+function formController(e) {
+    if (e.target.id == "form-professor-aluno") {
+        novoProfessorAluno(e);
+        return;
+    }
+
+    limparFormToDoList();
 }
 
 function limparFormProfessorAluno() {
@@ -460,18 +477,13 @@ function clicouDetailPrincipal(e) {
 function iniciarCompromissos() {
     listaCompromissos = new ToDoList();
     const urlAtual = new URL(location.href);
-    
-    if (urlAtual.searchParams.get("rodar")) {
-        if (sessionStorage.length == 0) {
-            Utils.initializeToDoList(listaCompromissos);
-            return;
-        }
-    
-        Utils.mountTableBySessionStorage(listaCompromissos, true);
+
+    if (sessionStorage.length == 0) {
+        Utils.initializeToDoList(listaCompromissos);
         return;
     }
-    
-    location.href = "../index.html";
+
+    Utils.mountTableBySessionStorage(listaCompromissos, true);
 }
 
 async function rodarQuandoCarregar() {
@@ -485,8 +497,12 @@ async function rodarQuandoCarregar() {
     console.log(new Pessoa("Diogo", "diogo.scarmagnani@fatec.sp.gov.br", "1990-04-14"));
 }
 
-document.querySelector("#form-todo-list, #form-cadastro").addEventListener("submit", novoCompromisso);
-document.querySelector("#form-todo-list, #form-cadastro").addEventListener("reset", limparForm);
+document.querySelectorAll("#form-todo-list, #form-cadastro").forEach(form => {
+    form.addEventListener("submit", novoCompromisso);
+    form.addEventListener("reset", limparForm);
+});
+// document.querySelectorAll("#form-todo-list, #form-cadastro").addEventListener("submit", novoCompromisso);
+// document.querySelectorAll("#form-todo-list, #form-cadastro").addEventListener("reset", limparForm);
 document.querySelectorAll("div.principal > details > summary").forEach( item => item.addEventListener("click", clicouDetailPrincipal) );
 document.querySelector("#btn-voltar").addEventListener("click", () => location = "../index.html");
 document.addEventListener("DOMContentLoaded", rodarQuandoCarregar);
