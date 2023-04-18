@@ -241,6 +241,28 @@ class Utils {
     
         firstTimeOnToDoList = true;
     }
+
+    static formatPhoneNumber(e) {
+        const input = e.target;
+        let maxLength = input.id == "tel-fixo-cadastro" ? 10 : 11;
+
+        // Remove all non-digit characters from the input string
+        let phoneNumber = input.value.replace(/\D/g, '');
+        
+        if (phoneNumber.length > maxLength)
+          phoneNumber = phoneNumber.substring(0, maxLength);
+        
+        // Check if the phone number has 11 digits, which includes the country code
+        if (phoneNumber.length === 11)
+          phoneNumber = phoneNumber.replace(/^(\d{2})(\d{5})(\d{4})$/, '($1) $2-$3');
+        
+        // Check if the phone number has 10 digits and format it accordingly
+        if (phoneNumber.length === 10)
+          phoneNumber = phoneNumber.replace(/^(\d{2})(\d{4})(\d{4})$/, '($1) $2-$3');
+        
+        // Set the formatted phone number as the input value
+        input.value = phoneNumber;
+    }
 }
 
 class Pessoa {
@@ -504,5 +526,6 @@ document.querySelectorAll("#form-todo-list, #form-cadastro").forEach(form => {
 // document.querySelectorAll("#form-todo-list, #form-cadastro").addEventListener("submit", novoCompromisso);
 // document.querySelectorAll("#form-todo-list, #form-cadastro").addEventListener("reset", limparForm);
 document.querySelectorAll("div.principal > details > summary").forEach( item => item.addEventListener("click", clicouDetailPrincipal) );
+document.querySelectorAll("#tel-fixo-cadastro, #tel-celular-cadastro").forEach( item => item.addEventListener("input", Utils.formatPhoneNumber) );
 document.querySelector("#btn-voltar").addEventListener("click", () => location = "../index.html");
 document.addEventListener("DOMContentLoaded", rodarQuandoCarregar);
