@@ -1,39 +1,57 @@
 class TempoTotalPlaylistYouTube {
     #divPrincipal;
     #allVideos;
+    #allDateTime;
+    #finalTimeAsDateTime;
 
     constructor(document = window.document) {
         this.#divPrincipal = [...document.querySelectorAll("div#columns div#secondary div#container.ytd-playlist-panel-renderer div#items div")];
-        this.#allVideos = this.#getAllVideosAsNodeElements();
+        
+        this.#allVideos = [];
+        this.#allDateTime = [];
+
+        this.#putAllVideoNode();
+        this.#getAllVideosAsNodeElements();
+
+        this.#finalTimeAsDateTime = this.#reduceAllTimeOfVideos();
     };
 
-    #getAllVideosAsNodeElements() {
-        let uauAux = [];
+    get divPrincipal() { return this.#divPrincipal; }
+    get allVideos() { return this.#allVideos; }
+    get allDateTime() { return this.#allDateTime; }
+    get finalTimeAsDateTime() { return this.#finalTimeAsDateTime; }
+    get finalTime() { return this.#finalTimeAsDateTime.toLocaleTimeString(); }
 
+    #putAllVideoNode() {
         this.#divPrincipal.forEach(item => {
             const b = item.querySelector("span.ytd-thumbnail-overlay-time-status-renderer");
             
-            if (b) {
-                let str = b.innerHTML.trim();
-                let arrStr = str.split(":");
-                let timee = new Date(0);
-
-                timee.setHours(0);
-                timee.setMinutes(+arrStr[0]);
-                timee.setSeconds(+arrStr[1]);
-
-                uauAux.push(timee);
-            }
+            if (b && !this.#allVideos.includes(b))
+                this.#allVideos.push(b);
         });
+    }
 
-        return uauAux;
+    #getAllVideosAsNodeElements() {
+        this.#allVideos.forEach(item => {
+            let str = item.innerHTML.trim();
+            let arrStr = str.split(":");
+            let timee = new Date();
+
+            timee.setHours(0);
+            timee.setMinutes(+arrStr[0]);
+            timee.setSeconds(+arrStr[1]);
+
+            this.#allDateTime.push(timee);
+        });
     }
 
     #reduceAllTimeOfVideos() {
-        let initialTime = new Date(0);
+        let initialTime = new Date();
         initialTime.setHours(0);
+        initialTime.setMinutes(0);
+        initialTime.setSeconds(0);
         
-        return this.#allVideos.reduce((tempoTotal, esseTempo) => {
+        return this.#allDateTime.reduce((tempoTotal, esseTempo) => {
             let segundoAtual = tempoTotal.getSeconds();
             let minutoAtual = tempoTotal.getMinutes();
         
@@ -43,11 +61,7 @@ class TempoTotalPlaylistYouTube {
             return tempoTotal;
         }, initialTime);
     }
-
-    async getTotalTime() {
-        let finalTimeAsDateTime = await this.#reduceAllTimeOfVideos();
-        return finalTimeAsDateTime.toLocaleTimeString();
-    }
 }
 
 const yes = new TempoTotalPlaylistYouTube;
+yes.finalTime;
